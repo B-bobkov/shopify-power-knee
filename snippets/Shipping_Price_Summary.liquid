@@ -1,0 +1,126 @@
+
+
+<!-- /*   GENERAL STYLE */ -->
+
+<style>
+  .shipping_price_summ_bar {
+    
+    background-color: {{ block.settings.shipping_price_summ_bg_col }};
+    
+    padding-top: {{ block.settings.shipping_price_summ_lap_top_pad }}px!important;
+    padding-bottom: {{ block.settings.shipping_price_summ_lap_bt_pad }}px!important;
+    padding-left: {{ block.settings.shipping_price_summ_lap_side_pad }}px!important;
+    padding-right: {{ block.settings.shipping_price_summ_lap_side_pad }}px!important;
+    
+    {% if block.settings.shipping_price_summ_display_on == 'Mobile_Only' %}
+      display: none;
+    {% endif %}
+    
+    {% case block.settings.shipping_price_summ_border_style %}
+      {% when 'full_border' %}
+      	border: {{ block.settings.shipping_price_summ_border_thickness }}px solid {{ block.settings.shipping_price_summ_border_col }}!important;
+    
+      {% when 'top_bt_border' %}
+        border-top: {{ block.settings.shipping_price_summ_border_thickness }}px solid {{ block.settings.shipping_price_summ_border_col }}!important;
+        border-bottom: {{ block.settings.shipping_price_summ_border_thickness }}px solid {{ block.settings.shipping_price_summ_border_col }}!important;            
+    
+      {% when 'top_border_only' %}
+      	border-top: {{ block.settings.shipping_price_summ_border_thickness }}px solid {{ block.settings.shipping_price_summ_border_col }}!important;
+    
+      {% when 'bottom_border_only' %}
+      	border-bottom: {{ block.settings.shipping_price_summ_border_thickness }}px solid {{ block.settings.shipping_price_summ_border_col }}!important;
+    
+      {% when 'side_border_only' %}
+        border-left: {{ block.settings.shipping_price_summ_border_thickness }}px solid {{ block.settings.shipping_price_summ_border_col }}!important;
+        border-right: {{ block.settings.shipping_price_summ_border_thickness }}px solid {{ block.settings.shipping_price_summ_border_col }}!important;
+    
+    {% endcase %}
+    
+    {% if block.settings.shipping_price_summ_shadow_coverage > 0 %}
+    	box-shadow: 0 {{ block.settings.shipping_price_summ_shadow_coverage }}px 3px {{ block.settings.shipping_price_summ_shadow_col }}!important;
+    
+    	{% if block.settings.shipping_price_summ_shadow_coverage > block.settings.shipping_price_summ_margin_pd_bt_lap %}
+          margin-bottom: {{ block.settings.shipping_price_summ_shadow_coverage | plus: 1 }}px!important;
+    	{% endif %}
+    
+    {% endif %}
+    
+    margin-top: {{ block.settings.shipping_price_summ_margin_pd_top_lap }}px;
+    margin-bottom: {{ block.settings.shipping_price_summ_margin_pd_bt_lap }}px;
+    
+    text-align: {{ block.settings.shipping_price_summ_msg_align }};
+    
+  }
+  
+  {% if block.settings.shipping_price_summ_stick_bt_lap == true %}
+    @media only screen and (min-width: 600px) {
+      .shipping_price_summ_bar {
+        position: fixed;
+        bottom: 0px;
+        width: 500px;
+      }
+    }
+  {% endif %}
+  
+  {% if block.settings.shipping_price_summ_stick_bt_mob == true %}
+    @media only screen and (max-width: 600px) {
+      .shipping_price_summ_bar {
+        position: fixed;
+        bottom: 0px;
+        width: 356.44px;
+      }
+    }
+  {% endif %}  
+
+</style>
+
+<!-- /*   MOBILE STYLE */ -->
+
+<style>
+  @media only screen and (max-width: 600px) {
+    .shipping_price_summ_bar{
+      padding-top: {{ block.settings.shipping_price_summ_mob_top_pad }}px!important;
+      padding-bottom: {{ block.settings.shipping_price_summ_mob_bt_pad }}px!important;
+      padding-left: {{ block.settings.shipping_price_summ_mob_side_pad }}px!important;
+      padding-right: {{ block.settings.shipping_price_summ_mob_side_pad }}px!important;
+      
+      {% if block.settings.shipping_price_summ_display_on == 'Desktop_Only' %}
+      	display: none;
+      {% endif %}
+      
+      margin-top: {{ block.settings.shipping_price_summ_margin_pd_top_mob }}px;
+      margin-bottom: {{ block.settings.shipping_price_summ_margin_pd_bt_mob }}px;
+      
+      {% if block.settings.shipping_price_summ_shadow_coverage > 0 %}
+    	box-shadow: 0 {{ block.settings.shipping_price_summ_shadow_coverage }}px 3px {{ block.settings.shipping_price_summ_shadow_col }}!important;
+    
+    	{% if block.settings.shipping_price_summ_shadow_coverage > block.settings.shipping_price_summ_margin_pd_bt_mob %}
+          margin-bottom: {{ block.settings.shipping_price_summ_shadow_coverage | plus: 1 }}px!important;
+    	{% endif %}
+    
+      {% endif %}
+      
+    } 
+ 
+  }
+</style>
+<!-- End of mobile style -->
+
+<!-- /*   SPECIFIC STYLE */ -->
+
+<style>
+  .shipping_price_summ_bar > p {margin: 0; display: initial; vertical-align: middle;}
+  
+ </style>
+
+
+<div class="shipping_price_summ_bar">
+
+  
+	This is template for Shipping_Price_Summary
+  	
+  
+  
+</div>
+
+

@@ -1,0 +1,560 @@
+<style>
+  .icon-hamburger:before {
+  	padding: 0;
+  }
+  
+  .site-header__logo img {
+    max-width: {{ section.settings.logo_width | escape | default: '180' | remove: 'px' | append: 'px' }};
+  }
+  
+  @media screen and (max-width: 749px) {
+    .site-header__logo img {
+      max-width: 100%;
+    }
+  }
+  
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    display: table; 
+    margin: 0 auto;
+    float: {{ settings.nav_laptop_style }};
+  }
+  
+  li {
+    float: left;
+    position: relative;
+    padding-left: 7px;
+    padding-right: 7px;
+    font-weight: {{ settings.nav_laptop_menu_font_weight }};
+    font-size: {{ settings.nav_laptop_menu_fsize }}px;
+    font-family: {{ settings.nav_laptop_menu_font }};
+  }
+  .site-header__inner {
+  	    height: auto;
+  }
+  #navigation_bar {
+	padding-top: {{ settings.nav_laptop_top_pad }}px;
+    padding-bottom: {{ settings.nav_laptop_bt_pad }}px;
+    padding-left: {{ settings.nav_laptop_side_pad }}px;
+    padding-right: {{ settings.nav_laptop_side_pad }}px;
+    background-color: {{ settings.nav_laptop_back_col }};
+  }
+  
+  .nav_item{
+    color: {{ settings.nav_laptop_menu_fcol }}!important;
+  }
+  
+  
+  #show_nav_button {display: none;}
+  
+/*   Mobile style */
+  @media only screen and (max-width: 900px) {
+    
+  	 
+    
+     .nav_link_part {display: none!important;}
+    
+     #navigation_bar {
+       background-color: {{ settings.nav_mob_back_col }};
+       height: auto;
+	   padding-top: {{ settings.nav_mob_top_pad }}px;
+       padding-bottom: {{ settings.nav_mob_bt_pad }}px;
+  	 }
+    
+    li {
+      font-family: {{ settings.nav_mob_menu_font }};
+      font-weight: {{ settings.nav_mob_menu_font_weight }};
+      font-size: {{ settings.nav_mob_menu_fsize }}px;
+    }
+    
+    .nav_item{
+      color: {{ settings.nav_mob_menu_fcol }}!important;
+    }
+    
+    #NavDrawer {
+      background-color: {{ settings.nav_mob_dropdown_back_color }};
+    }
+  }
+  
+  #header_txt_logo {
+    padding: {{ settings.logo_box_pd_top_bt }}px {{ settings.logo_box_pd_side }}px;
+  	font-family: {{ settings.logo_font }};
+    font-weight: {{ settings.logo_font_weight }};
+    font-size: {{ settings.logo_font_laptop_size_2 }}px;
+    line-height: {{ settings.logo_font_laptop_size | plus: settings.logo_font_line_height }}px;
+    color: {{ settings.logo_fcol }};
+    
+    {% if settings.logo_enable_box_outline == true %}		
+		border: {{ settings.logo_box_border_thickness }}px solid {{ settings.logo_box_color }};
+    {% endif %}
+    
+  }
+  
+    @media only screen and (max-width: 900px) {
+  		#header_txt_logo {
+         	font-size: {{ settings.logo_font_mob_size_2 }}px; 
+        }
+    }
+
+  /*  account icon  */
+  .icon-account:before {
+    font-family: FontAwesome;
+    display: inline-block;
+    padding-right: 0px;
+    vertical-align: middle;
+    content: "\f007";	
+      color: {{ settings.nav_srch_icon_color }};    
+    font-size: {{ settings.nav_srch_icon_laptop_size }}px;
+  }
+  
+  .icon-search:before {
+    font-family: FontAwesome;
+    display: inline-block;
+    padding-right: 0px;
+    vertical-align: middle;
+    content: "\f{{settings.nav_srch_icon_icon}}";	
+      color: {{ settings.nav_srch_icon_color }};    
+    font-size: {{ settings.nav_srch_icon_laptop_size }}px;
+  }
+  
+  {% if settings.nav_srch_icon_same_size_on_mob == false %}
+    @media only screen and (max-width: 900px) {
+      .icon-search:before, .icon-account:before {
+        font-size: {{ settings.nav_srch_icon_mob_size }}px;
+      }
+    }
+  {% endif %}
+  
+/* Icon cart   */
+    .icon-cart:before {
+    font-family: FontAwesome;
+    display: inline-block;
+    padding-right: 0px;
+    vertical-align: middle;
+    content: "\f{{settings.nav_cart_icon_icon}}";	
+      color: {{ settings.nav_cart_icon_color }};    
+    font-size: {{ settings.nav_cart_icon_laptop_size }}px;
+  }
+  
+  {% if settings.nav_cart_icon_same_size_on_mob == false %}
+    @media only screen and (max-width: 900px) {
+      .icon-cart:before {
+        font-size: {{ settings.nav_cart_icon_mob_size }}px;
+      }
+    }
+  {% endif %}
+  
+  
+  
+</style>
+
+<!-- border setting -->
+{% if settings.nav_laptop_bt_border_enable == true %}
+  <style>
+    #navigation_bar{
+      border-bottom: {{ settings.nav_laptop_bt_border_thickness }}px solid {{ settings.nav_laptop_bt_border_color }};
+    }
+  </style>
+{% endif %}
+
+{% if settings.nav_mob_bt_border_enable == true %}
+  <style>
+   @media only screen and (max-width: 900px) {
+    #navigation_bar {
+      border-bottom: {{ settings.nav_mob_bt_border_thickness }}px solid {{ settings.nav_mob_bt_border_color }};
+     }
+   }
+  </style>
+{% endif %}
+
+<!-- highlight setting -->
+{% if settings.nav_laptop_show_highlight == true %}
+  <style>
+    .nav_item:after {    
+      background: none repeat scroll 0 0 transparent;
+      bottom: 0;
+      content: "";
+      display: inline-block;
+      height: 2px;
+      left: 0%;
+      position: absolute;
+      background: {{ settings.nav_laptop_highlight_color }};
+      transition: width 0.3s ease 0s, left 0.3s ease 0s;
+      width: 0;
+    }
+    .nav_item:hover:after { 
+      width: 100%; 
+      left: 0; 
+    }
+  </style>
+{% endif %}
+
+  {% if settings.nav_menu_icon_enable == true %}
+    <style>
+            .nav_item:before {
+                font-family: FontAwesome;
+                display: inline-block;
+                padding-right: 10px;
+                vertical-align: middle;
+                content: "\f{{settings.nav_menu_icon}}";	
+                color: {{ settings.nav_icon_normal_menu_color }};
+                font-size: {{ settings.nav_icon_normal_menu_laptop_size }}px;
+            }
+    </style>
+  {% endif %}
+
+  {% if settings.nav_menu_hlight_icon_enable == true %}
+    <style>
+            .nav_item:hover::before {
+                font-family: FontAwesome;
+                display: inline-block;
+                padding-right: 10px;
+                vertical-align: middle;
+                content: "\f{{settings.nav_menu_hlight_icon}}";	
+                color: {{ settings.nav_icon_high_menu_color }};
+                font-size: {{ settings.nav_icon_high_menu_laptop_size }}px;
+            }
+    </style>
+  {% endif %}
+
+
+<!-- Shadow setting -->
+{% if settings.nav_laptop_shadow_enable == true %}
+  <style>
+    #shopify-section-header{
+      box-shadow: 0 {{ settings.nav_laptop_shadow_coverage }}px 10px {{ settings.nav_laptop_shadow_color }};
+    }
+  </style>
+{% endif %}
+
+{% if settings.nav_mob_shadow_enable == true %}
+  <style>
+    @media only screen and (max-width: 900px) {
+      #shopify-section-header{
+        box-shadow: 0 {{ settings.nav_mob_shadow_coverage }}px 10px {{ settings.nav_mob_shadow_color }};
+      }
+    }
+  </style>
+{% endif %}
+
+<!-- style for header -->
+<style>
+  @media only screen and (min-width: 900px) {
+  
+  .nav_logo_section {
+      width: 15%;
+      display: inline-block;
+      text-align: left;
+      vertical-align: middle;
+  }
+
+  .nav_link_part {
+      width: 70%;
+      display: inline-block;
+      vertical-align: middle;
+  }
+
+  .srch_cart_icon {
+      width: 15%;
+      display: inline-block;
+      text-align: right;
+      vertical-align: middle;
+      margin: -42px 0;
+      padding-bottom: 7px;
+  }
+    
+}
+  
+  
+  @media only screen and (max-width: 900px) {
+  
+  #show_nav_button {
+	width:20%;
+    display: inline-block;
+    vertical-align: middle;
+  }
+    
+  .nav_logo_section {
+      width: 60%;
+      display: inline-block;
+      text-align: center;
+      vertical-align: middle;
+  }
+
+  .srch_cart_icon {
+      width: 20%;
+      display: inline-block;
+      text-align: right;
+      vertical-align: middle;
+      margin: -42px 0;
+      padding-bottom: 7px;
+  }
+    
+}
+</style>
+
+<!-- This is Navigation bar -->
+<header class="site-header" role="banner" data-section-id="{{ section.id }}" data-section-type="header-section">
+  <div class="grid grid--no-gutters grid--table site-header__inner" id="navigation_bar">
+    
+    <div id="show_nav_button" >
+      <button type="button" class="site-header__link text-link site-header__toggle-nav js-drawer-open-left">
+        <span class="icon icon-hamburger" aria-hidden="true"></span>
+        <span class="icon__fallback-text">{{ 'layout.navigation.menu' | t }}</span>
+      </button>
+    </div>
+    
+	<div class="nav_logo_section">
+      
+      {%- if settings.navigation_logo != blank -%}
+      <a href="{{ routes.root_url }}" itemprop="url" class="site-header__logo-link">
+       <img src={{ settings.navigation_logo | img_url  }} >
+      </a>
+      {%- else -%}
+      <a href="{{ routes.root_url }}" id="header_txt_logo" class="site-header__link site-header__logo-link" style="text-align: center;"
+        itemprop="url">{{ shop.name }}</a>
+      {%- endif -%}
+      
+    </div>
+    
+    <div class="nav_link_part ">
+      <ul class="navbar-nav mr-auto" >
+        {% for link in linklists.main-menu.links %}
+          <li> <a class="nav_item" href="{{ link.url }}">{{ link.title }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+    
+
+    
+    {% comment %}
+<!--     <div class="grid__item one-third medium-up--two-thirds">
+      <div class="site-header__logo h1" itemscope itemtype="http://schema.org/Organization">
+
+        {%- if request.page_type == "index" -%}
+          {%- if section.settings.logo_slideshow != blank -%}
+            <a href="{{ routes.root_url }}" itemprop="url" class="site-header__logo-link">
+              {% capture image_size %}{{ section.settings.logo_width | escape }}x{% endcapture %}
+              <img class="site-header__logo-image" src="{{ section.settings.logo_slideshow | img_url: image_size }}"
+              srcset="{{ section.settings.logo_slideshow | img_url: image_size }} 1x, {{ section.settings.logo_slideshow | img_url: image_size, scale: 2 }} 2x" alt="{{ shop.name }}" itemprop="logo">
+            </a>
+          {%- endif -%}
+        {%- else -%}
+          {%- if section.settings.logo != blank -%}
+            <a href="{{ routes.root_url }}" itemprop="url" class="site-header__logo-link">
+              {% capture image_size %}{{ section.settings.logo_width | escape }}x{% endcapture %}
+              <img class="site-header__logo-image" src="{{ section.settings.logo | img_url: image_size }}"
+              srcset="{{ section.settings.logo | img_url: image_size }} 1x, {{ section.settings.logo | img_url: image_size, scale: 2 }} 2x" alt="{{ shop.name }}" itemprop="logo">
+            </a>
+          {%- else -%}
+            <a href="{{ routes.root_url }}" class="site-header__link site-header__logo-link" itemprop="url">{{ shop.name }}</a>
+          {%- endif -%}
+        {%- endif -%}
+
+
+        
+      </div>
+    </div> -->
+    {% endcomment %}
+
+    <div class="srch_cart_icon">
+      <a href="{{ routes.account_url }}" class="site-header__link">
+        <span class="icon icon-account" aria-hidden="true"></span>
+        
+      </a>
+      <a href="{{ routes.search_url }}" class="site-header__link site-header__search js-drawer-open-top">
+        <span class="icon icon-search" aria-hidden="true"></span>
+        <span class="icon__fallback-text">{{ 'layout.navigation.search' | t }}</span>
+      </a>
+      <a href="{{ routes.cart_url }}" class="site-header__link site-header__cart cart-link{% if settings.cart_type == 'drawer' %} js-drawer-open-right{% endif %}{% if cart.item_count > 0 %} cart-bubble--visible{% endif %}">
+        <span class="icon icon-cart" aria-hidden="true" style="padding-right: 0px;"></span>
+        <span class="icon__fallback-text">{{ 'layout.cart.title' | t }}</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+
+{% schema %}
+{
+  "name": {
+    "cs": "Záhlaví",
+    "da": "Overskrift",
+    "de": "Titel",
+    "en": "Header",
+    "es": "Encabezado",
+    "fi": "Ylätunniste",
+    "fr": "En-tête",
+    "it": "Header",
+    "ja": "ヘッダー",
+    "ko": "헤더",
+    "nb": "Header",
+    "nl": "Koptekst",
+    "pl": "Nagłówek",
+    "pt-BR": "Cabeçalho",
+    "pt-PT": "Cabeçalho",
+    "sv": "Rubrik",
+    "th": "ส่วนหัว",
+    "tr": "Üstbilgi",
+    "vi": "Đầu trang",
+    "zh-CN": "标头",
+    "zh-TW": "標頭"
+  },
+  "class": "header-section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": {
+        "cs": "Logo",
+        "da": "Logo",
+        "de": "Logo",
+        "en": "Logo",
+        "es": "Logo",
+        "fi": "Logo",
+        "fr": "Logo",
+        "it": "Logo",
+        "ja": "ロゴ",
+        "ko": "로고",
+        "nb": "Logo",
+        "nl": "Logo",
+        "pl": "Logo",
+        "pt-BR": "Logotipo",
+        "pt-PT": "Logótipo",
+        "sv": "Logotyp",
+        "th": "โลโก้",
+        "tr": "Logo",
+        "vi": "Logo",
+        "zh-CN": "logo",
+        "zh-TW": "商標"
+      },
+      "info": {
+        "cs": "Maximálně 450 × 200 px",
+        "da": "Maks. 450 x 200 px",
+        "de": "Maximal 450 x 200 Pixel",
+        "en": "450 x 200px max",
+        "es": "450 x 200px máx.",
+        "fi": "Enintään 450 x 200 pikseliä",
+        "fr": "450 x 250 px max",
+        "it": "450 x 200 px max",
+        "ja": "最大450 x 200ピクセル",
+        "ko": "최대 450x200 픽셀",
+        "nb": "Maks 450 x 200 px",
+        "nl": "450 x 200px max",
+        "pl": "Maks. 450 x 200 px",
+        "pt-BR": "450 x 200 px máx.",
+        "pt-PT": "450 x 200 px máx.",
+        "sv": "450 x 200 px max",
+        "th": "สูงสุด 450 x 200 พิกเซล",
+        "tr": "Maksimum 450 x 200 piksel",
+        "vi": "Tối đa 450 x 200px",
+        "zh-CN": "最大 450 x 200 px",
+        "zh-TW": "最大 450 x 200 像素"
+      }
+    },
+    {
+      "type": "image_picker",
+      "id": "logo_slideshow",
+      "label": {
+        "cs": "Logo na domovské stránce",
+        "da": "Logo på startside",
+        "de": "Startseitenlogo",
+        "en": "Home page logo",
+        "es": "Logo de la página de inicio",
+        "fi": "Etusivun logo",
+        "fr": "Logo de la page d'accueil",
+        "it": "Logo della home page",
+        "ja": "ホームページのロゴ",
+        "ko": "홈페이지 로고",
+        "nb": "Logo for startsiden",
+        "nl": "Logo homepage",
+        "pl": "Logo strony głównej",
+        "pt-BR": "Logotipo da página inicial",
+        "pt-PT": "Logótipo da página inicial",
+        "sv": "Hemsideslogo",
+        "th": "โลโก้หน้าแรก",
+        "tr": "Ana sayfa logosu",
+        "vi": "Logo trang chủ",
+        "zh-CN": "主页 logo",
+        "zh-TW": "首頁商標"
+      },
+      "info": {
+        "cs": "Zobrazit v prezentaci",
+        "da": "Vist i diasshow",
+        "de": "In Slideshow anzeigen",
+        "en": "Shown on slideshow",
+        "es": "Mostrado en diapositivas",
+        "fi": "Näkyy diaesityksessä",
+        "fr": "Affiché sur le diaporama",
+        "it": "Mostrato sulla presentazione",
+        "ja": "スライドショーに表示する",
+        "ko": "슬라이드쇼에 표시",
+        "nb": "Vist i lysbildefremvisning",
+        "nl": "Weergegeven op diavoorstelling",
+        "pl": "Wyświetlane w pokazie slajdów",
+        "pt-BR": "Exibido em slides",
+        "pt-PT": "Mostrado numa apresentação de diapositivos",
+        "sv": "Visas på bildspelet",
+        "th": "แสดงในสไลด์โชว์",
+        "tr": "Slayt gösterisinde gösterilir",
+        "vi": "Hiển thị trên bản trình chiếu",
+        "zh-CN": "显示在幻灯片上",
+        "zh-TW": "素材輪播"
+      }
+    },
+    {
+      "type": "text",
+      "id": "logo_width",
+      "label": {
+        "cs": "Šířka vlastního loga (v pixelech)",
+        "da": "Tilpasset logobredde (i pixels)",
+        "de": "Benutzerdefinierte Logobreite (Pixel)",
+        "en": "Custom logo width (in pixels)",
+        "es": "Ancho del logo personalizado (en píxeles)",
+        "fi": "Mukautettu logon leveys (pikseleinä)",
+        "fr": "Largeur personnalisée du logo (en pixels)",
+        "it": "Larghezza logo personalizzato (in pixel)",
+        "ja": "ロゴの幅をカスタマイズする (ピクセル単位)",
+        "ko": "사용자 지정 로고 폭 (픽셀)",
+        "nb": "Tilpasset logobredde (i piksler)",
+        "nl": "Aangepaste logobreedte (in pixels)",
+        "pl": "Niestandardowa szerokość logo (w pikselach)",
+        "pt-BR": "Largura do logotipo personalizado (em pixels)",
+        "pt-PT": "Largura de logótipo personalizada (em píxeis)",
+        "sv": "Anpassad logotypbredd (i pixlar)",
+        "th": "ความกว้างของโลโก้แบบกำหนดเอง (เป็นพิกเซล)",
+        "tr": "Özel logo genişliği (piksel)",
+        "vi": "Chiều rộng logo tùy chỉnh (pixel)",
+        "zh-CN": "自定义 logo 宽度（像素）",
+        "zh-TW": "自訂標誌寬度 (單位為像素)"
+      },
+      "default": {
+        "cs": "180",
+        "da": "180",
+        "de": "180",
+        "en": "180",
+        "es": "180",
+        "fi": "180",
+        "fr": "180",
+        "it": "180",
+        "ja": "180",
+        "ko": "180",
+        "nb": "180",
+        "nl": "180",
+        "pl": "180",
+        "pt-BR": "180",
+        "pt-PT": "180",
+        "sv": "180",
+        "th": "180",
+        "tr": "180",
+        "vi": "180",
+        "zh-CN": "180",
+        "zh-TW": "180"
+      }
+    }
+  ]
+}
+{% endschema %}

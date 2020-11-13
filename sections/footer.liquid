@@ -1,0 +1,593 @@
+<!-- Style for footer menu -->
+<style>
+  #ft_bt_menu {
+    font-weight: {{ settings.fter_bt_menu_font_weight }};
+    color: {{ settings.fter_bt_menu_fcol }};
+    padding: 10px;
+  }  
+  
+  #ft_bt_menu>ul>li {
+    font-family: {{ settings.fter_bt_menu_font_family }};
+    font-size: {{ settings.fter_bt_menu_fsize }}px;
+  }
+  
+  {% if settings.fter_bt_menu_fsize_same_mob == false %}
+    @media only screen and (max-width: 600px) {
+      #ft_bt_menu>ul>li {
+        font-size: {{ settings.fter_bt_menu_fsize_mob }}px;
+      }
+    }
+  {% endif %}
+  
+  
+</style>
+
+<!-- style for laptop -->
+<style>
+  .site-footer{ 
+    background-color: {{ settings.fter_lap_bg_col }}; 
+  	padding: 0;
+  }
+  
+  .footer_heading{
+    color: {{ settings.fter_heading_col }};
+    font-size: {{ settings.fter_heading_size }}px;
+    font-weight: {{ settings.fter_lap_heading_font_weight }};
+    font-family: {{ settings.fter_lap_heading_font_family }};
+  }
+  
+  .footer_heading_ul {
+  	display: inline-grid!important;
+  }
+  
+  .footer_content{
+    color: {{ settings.fter_subheading_col }};
+    font-size: {{ settings.fter_subheading_size }}px;
+    font-weight: {{ settings.fter_lap_subheading_font_weight }};
+    font-family: {{ settings.fter_lap_subheading_font_family }};
+  }
+  
+  .footer_bt_img {
+    display: block; 
+    margin: auto;
+    width: {{ settings.fter_img_lap_width }}px;
+  }
+  
+  .ft_bt_txt {
+    font-family: {{ settings.fter_bt_txt_font_family }};
+    font-weight: {{ settings.fter_bt_txt_font_weight }};
+    font-size: {{ settings.fter_bt_txt_font_size }}px;
+    
+    {% if settings.fter_bt_txt_bold == false %}
+    	color: {{ settings.fter_bt_txt_reg_fcol }};
+    {% else %}
+    	color: {{ settings.fter_bt_txt_bold_fcol }};
+    {% endif %}
+    
+    line-height: {{ settings.fter_bt_txt_line_height }};
+    text-align: {{ settings.fter_bt_txt_align }};
+    {% if settings.fter_bt_txt_italic == true %}
+		font-style: italic;
+    {% endif %}
+    {% if settings.fter_bt_txt_underline == true %}
+    	text-decoration: underline;
+    {% endif %}
+  }
+</style>
+
+<!-- style for mobile -->
+<style>
+  .accordion {
+    background-color: {{ settings.fter_mob_menu_col }};
+    color: #444;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: center;
+    outline: none;
+    font-size: 15px;
+    transition: 0.4s;
+    margin-bottom: 0px;
+    font-weight: {{ settings.fter_mob_heading_font_weight }};
+    font-size: {{ settings.fter_mob_heading_font_heading_size }}px;
+    color: {{ settings.fter_mob_heading_font_heading_col }};
+    border-bottom: 3px solid {{ settings.fter_mob_divider_col }};
+    font-family: {{ settings.fter_mob_heading_font_family }};
+  }
+
+  .active, .accordion:hover {
+    background-color: #ccc;
+  }
+
+  .accordion:after {
+    content: '\002B';
+    color: #777;
+    font-weight: bold;
+    float: right;
+    margin-left: 5px;
+  }
+
+  .active:after {
+    content: "\2212";
+  }
+
+  .panel {
+    padding: 0 18px;
+    background-color: white;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+    background-color: {{ settings.fter_mob_heading_bg_col }};
+  }
+  
+  .mobile_logo {
+    display: block;
+    margin: 0 auto;
+  }
+  
+  .mobile_logo_wrapper {
+    background-color: {{ settings.fter_mob_top_bg_col }}; 
+  }
+  
+  .footer_content_mob {
+    font-family: {{ settings.fter_mob_heading_f_fam }};
+    font-weight: {{ settings.fter_mob_heading_f_wei }};
+    color: {{ settings.fter_mob_dropdown_heading_col }};
+    font-size: {{ settings.fter_mob_dropodown_heading_size }}px;
+  }
+  
+  .ft_menu_ul {
+    display: inline-grid;
+  }
+</style>
+
+<!-- Hide laptop footer on mobile & show mob footer -->
+<style>
+  @media only screen and (max-width: 600px) {
+    .footer_part{display: none; }
+    .site-footer{ 
+      background-color: {{ settings.fter_mob_heading_bt_bg_col }};       
+    }  
+  }
+  
+  @media only screen and (min-width: 600px) {
+    .mobile_footer{display: none; }
+  }
+  
+</style>
+
+<!-- Icon settings -->
+<style>
+  .ft_icon_wrapper {
+  	margin-left: 10px;
+    text-align: center;
+  }
+  .ft_lap_icon {
+  	color: {{ settings.fter_icon_col }};
+    font-size: {{ settings.fter_icon_size }}px;
+  }
+  .ft_icon_mob {
+    color: {{ settings.fter_mob_icon_col }};
+    font-size: {{ settings.fter_mob_icon_size }}px;
+  }
+  .icon_fb:before {
+    font-family: FontAwesome;
+    display: inline-block;
+    padding-right: 10px;
+    vertical-align: middle;
+    content: "\f09a";	
+  }
+  .icon_pin:before {
+    font-family: FontAwesome;
+    display: inline-block;
+    padding-right: 10px;
+    vertical-align: middle;
+    content: "\f0d2";	
+  }
+  .icon_ins:before {
+    font-family: FontAwesome;
+    display: inline-block;
+    padding-right: 10px;
+    vertical-align: middle;
+    content: "\f16d";	
+  }
+  .icon_email:before {
+    font-family: FontAwesome;
+    display: inline-block;
+    padding-right: 10px;
+    vertical-align: middle;
+    content: "\f003";	
+  }
+  
+</style>
+
+
+{% if settings.fter_img_width_same_on_mob == false %}
+  <style>
+    @media only screen and (max-width: 600px) {
+    .footer_bt_img {
+      display: block; 
+      margin: auto;
+      width: {{ settings.fter_img_width_mob }}px;
+    }
+  }
+  </style>
+{% endif %}
+
+
+{% if settings.fter_bt_txt_font_size_same_mob == false %}
+  <style>
+    @media only screen and (max-width: 600px) {
+      .ft_bt_txt {
+        font-size: {{ settings.fter_bt_txt_font_size_mob }}px;
+      }
+  }
+  </style>
+{% endif %}
+
+
+<footer class="site-footer" role="contentinfo">
+  {% comment %}
+    Show Shop Links from footer linklist if it has any links
+  
+  {% if linklists[section.settings.footer_link_list].links.size > 0 %}
+    <ul class="list--inline site-footer__linklist">
+      {% for link in linklists[section.settings.footer_link_list].links %}
+        <li class="h4"><a href="{{ link.url }}">{{ link.title }}</a></li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+  {% endcomment %}
+  
+  {% comment %}
+  <div class="grid text-center large-up--grid--table">
+    <div class="grid__item large-up--one-quarter text-center">
+      <ul class="list--inline social-icons social-icons--footer">
+        {% if settings.social_twitter_link != blank %}
+          <li>
+            <a href="{{ settings.social_twitter_link | escape }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Twitter' }}">
+              <span class="icon icon-twitter" aria-hidden="true"></span>
+              <span class="visually-hidden">Twitter</span>
+            </a>
+          </li>
+        {% endif %}
+        {% if settings.social_facebook_link != blank %}
+          <li>
+            <a href="{{ settings.social_facebook_link | escape }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Facebook' }}">
+              <span class="icon icon-facebook" aria-hidden="true"></span>
+              <span class="visually-hidden">Facebook</span>
+            </a>
+          </li>
+        {% endif %}
+        {% if settings.social_pinterest_link != blank %}
+          <li>
+            <a href="{{ settings.social_pinterest_link | escape }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Pinterest' }}">
+              <span class="icon icon-pinterest" aria-hidden="true"></span>
+              <span class="visually-hidden">Pinterest</span>
+            </a>
+          </li>
+        {% endif %}
+        {% if settings.social_google_plus_link != blank %}
+          <li>
+            <a href="{{ settings.social_google_plus_link | escape }}" rel="publisher" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Google Plus' }}">
+              <span class="icon icon-google_plus" aria-hidden="true"></span>
+              <span class="visually-hidden">Google Plus</span>
+            </a>
+          </li>
+        {% endif %}
+        {% if settings.social_instagram_link != blank %}
+          <li>
+            <a href="{{ settings.social_instagram_link | escape }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Instagram' }}">
+              <span class="icon icon-instagram" aria-hidden="true"></span>
+              <span class="visually-hidden">Instagram</span>
+            </a>
+          </li>
+        {% endif %}
+        {% if settings.social_snapchat_link != blank %}
+        <li>
+          <a href="{{ settings.social_snapchat_link | escape }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Snapchat' }}">
+            <span class="icon icon-snapchat" aria-hidden="true"></span>
+            <span class="visually-hidden">Snapchat</span>
+          </a>
+        </li>
+        {% endif %}
+        {% if settings.social_tumblr_link != blank %}
+          <li>
+            <a href="{{ settings.social_tumblr_link | escape }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Tumblr' }}">
+              <span class="icon icon-tumblr" aria-hidden="true"></span>
+              <span class="visually-hidden">Tumblr</span>
+            </a>
+          </li>
+        {% endif %}
+        {% if settings.social_youtube_link != blank %}
+          <li>
+            <a href="{{ settings.social_youtube_link | escape }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'YouTube' }}">
+              <span class="icon icon-youtube" aria-hidden="true"></span>
+              <span class="visually-hidden">YouTube</span>
+            </a>
+          </li>
+        {% endif %}
+        {% if settings.social_vimeo_link != blank %}
+          <li>
+            <a href="{{ settings.social_vimeo_link | escape }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Vimeo' }}">
+              <span class="icon icon-vimeo" aria-hidden="true"></span>
+              <span class="visually-hidden">Vimeo</span>
+            </a>
+          </li>
+        {% endif %}
+        {% if settings.social_fancy_link != blank %}
+          <li>
+            <a href="{{ settings.social_fancy_link | escape }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Fancy' }}">
+              <span class="icon icon-fancy" aria-hidden="true"></span>
+              <span class="visually-hidden">Fancy</span>
+            </a>
+          </li>
+        {% endif %}
+      </ul>
+    </div>
+    <div class="grid__item large-up--one-half">
+      <span class="site-footer__copyright">&copy; {{ 'now' | date: '%Y' }}, <a href="{{ routes.root_url }}">{{ shop.name }}</a>. {{ powered_by_link }}</span>
+    </div>
+    <div class="grid__item large-up--one-quarter text-center">
+      {%- if section.settings.show_payment_icons -%}
+        {%- unless shop.enabled_payment_types == empty -%}
+          <span class="visually-hidden">{{ 'general.payment.method' | t }}</span>
+          <ul class="list--inline payment-icons payment-icons--footer">
+            {%- for type in shop.enabled_payment_types -%}
+              <li>
+                {{ type | payment_type_svg_tag: class: 'payment-icons__icon' }}
+              </li>
+            {%- endfor -%}
+          </ul>
+        {%- endunless -%}
+      {%- endif -%}
+    </div>
+  </div>
+  {% endcomment %}
+  
+<!-- Laptop footer -->
+  
+  <div class="footer_part" style="padding: 13px;">
+    <div class="grid text-center large-up--grid--table">
+      <div class="grid__item large-up--one-quarter text-center">
+		<img src={{ settings.fter_logo | img_url  }} width={{ settings.fter_logo_width }}px >
+        <div class="ft_icon_wrapper" >
+          <span class="icon_fb ft_lap_icon"></span>
+          <span class="icon_pin ft_lap_icon"></span>
+          <span class="icon_ins ft_lap_icon"></span>
+          <span class="icon_email ft_lap_icon"></span>
+        </div>
+      </div>
+      <div class="grid__item large-up--one-quarter text-center">
+        <h6 class="footer_heading">Company</h6>
+        <ul class="footer_heading_ul">
+          <li class="footer_content">About us</li>
+          <li class="footer_content">Privacy Policy</li>
+          <li class="footer_content">Discount</li>
+          <li class="footer_content">Our Covid-19 Updates</li>
+        </ul>
+      </div>
+      <div class="grid__item large-up--one-quarter text-center">
+        <h6 class="footer_heading">Company</h6>
+        <ul class="footer_heading_ul">
+          <li class="footer_content">About us</li>
+          <li class="footer_content">Privacy Policy</li>
+          <li class="footer_content">Discount</li>
+          <li class="footer_content">Our Covid-19 Updates</li>
+        </ul>
+      </div>
+      <div class="grid__item large-up--one-quarter text-center">
+        <h6 class="footer_heading">Company</h6>
+        <ul class="footer_heading_ul">
+          <li class="footer_content">About us</li>
+          <li class="footer_content">Privacy Policy</li>
+          <li class="footer_content">Discount</li>
+          <li class="footer_content">Our Covid-19 Updates</li>
+        </ul>
+      </div>
+    </div>
+    
+  </div>
+  
+<!-- Mobile footer -->
+          
+  <div class="mobile_footer">
+  	<div class="mobile_logo_wrapper">
+      {% if settings.fter_logo_width_same_on_mob == true %}
+      	<img class="mobile_logo" src={{ settings.fter_logo | img_url  }} width={{ settings.fter_logo_width }}px >
+      {% else %}
+      	<img class="mobile_logo" src={{ settings.fter_logo | img_url  }} width={{ settings.fter_logo_width_mob }}px >
+      {% endif %}
+      <div class="ft_icon_wrapper" >
+        <span class="icon_fb ft_icon_mob"></span>
+        <span class="icon_pin ft_icon_mob"></span>
+        <span class="icon_ins ft_icon_mob"></span>
+        <span class="icon_email ft_icon_mob"></span>
+      </div>
+    </div>
+
+    <div class="acc_wraper">
+      <p class="accordion">Shop</p>
+      <div class="panel">
+        <ul class="ft_menu_ul">
+          <li class="footer_content_mob">About us</li>
+          <li class="footer_content_mob">Privacy Policy</li>
+          <li class="footer_content_mob">Discount</li>
+          <li class="footer_content_mob">Our Covid-19 Updates</li>
+        </ul>
+      </div>
+
+      <p class="accordion">Explore</p>
+      <div class="panel">
+        <ul class="ft_menu_ul" >
+          <li class="footer_content_mob">About us</li>
+          <li class="footer_content_mob">Privacy Policy</li>
+          <li class="footer_content_mob">Discount</li>
+          <li class="footer_content_mob">Our Covid-19 Updates</li>
+        </ul>
+      </div>
+
+      <p class="accordion">Legal</p>
+      <div class="panel">
+        <ul class="ft_menu_ul" >
+          <li class="footer_content_mob">About us</li>
+          <li class="footer_content_mob">Privacy Policy</li>
+          <li class="footer_content_mob">Discount</li>
+          <li class="footer_content_mob">Our Covid-19 Updates</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+          
+  <div>    
+     <img  class="footer_bt_img" src={{ settings.fter_img | img_url  }}  >
+  </div>
+  
+  <div id="ft_bt_menu">
+	<ul>
+      <li>Terms and Conditions</li>
+      <li>Refund Policy</li>
+      
+      
+    </ul>
+  </div>
+          
+  <div>
+    <p class="ft_bt_txt">
+      {{ settings.fter_bt_txt }}
+    <p>
+  </div>
+</footer>
+        
+        
+
+        
+
+<script>
+var acc = document.getElementsByClassName("accordion");
+var i;
+
+for (i = 0; i < acc.length; i++) {
+  acc[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var panel = this.nextElementSibling;
+    if (panel.style.maxHeight) {
+      panel.style.maxHeight = null;
+    } else {
+      panel.style.maxHeight = panel.scrollHeight + "px";
+    } 
+  });
+}
+</script>
+
+{% schema %}
+{
+  "name": {
+    "cs": "Zápatí",
+    "da": "Sidefod",
+    "de": "Fußzeile",
+    "en": "Footer",
+    "es": "Pie de página",
+    "fi": "Alatunniste",
+    "fr": "Pied de page",
+    "it": "Footer",
+    "ja": "フッター",
+    "ko": "바닥글",
+    "nb": "Footer",
+    "nl": "Voettekst",
+    "pl": "Stopka",
+    "pt-BR": "Rodapé",
+    "pt-PT": "Rodapé",
+    "sv": "Sidfot",
+    "th": "ส่วนท้าย",
+    "tr": "Altbilgi",
+    "vi": "Chân trang",
+    "zh-CN": "页脚",
+    "zh-TW": "頁尾"
+  },
+  "class": "footer-section",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "footer_link_list",
+      "label": {
+        "cs": "Nabídka",
+        "da": "Menu",
+        "de": "Menü",
+        "en": "Menu",
+        "es": "Menú",
+        "fi": "Valikko",
+        "fr": "Menu",
+        "it": "Menu",
+        "ja": "メニュー",
+        "ko": "메뉴",
+        "nb": "Meny",
+        "nl": "Menu",
+        "pl": "Menu",
+        "pt-BR": "Menu",
+        "pt-PT": "Menu",
+        "sv": "Meny",
+        "th": "เมนู",
+        "tr": "Menü",
+        "vi": "Menu",
+        "zh-CN": "菜单",
+        "zh-TW": "選單"
+      },
+      "default": "footer",
+      "info": {
+        "cs": "V této nabídce se nezobrazí položky rozevíracího seznamu",
+        "da": "Denne menu viser ikke rullemenupunkter",
+        "de": "Dieses Menü zeigt keine Dropdowns an",
+        "en": "This menu won't show dropdown items",
+        "es": "Este menú no mostrará elementos desplegables",
+        "fi": "Tämä valikko ei näytä pudotuskohteita",
+        "fr": "Ce menu n'affichera pas les éléments des menus déroulants",
+        "it": "Questo menu non mostrerà elementi a discesa",
+        "ja": "このメニューにはドロップダウンアイテムは表示されません",
+        "ko": "이 메뉴는 드롭 다운 항목을 표시하지 않습니다.",
+        "nb": "Denne menyen vil ikke vise rullegardinelementer",
+        "nl": "Dit menu laat geen vervolgkeuze-artikelen zien.",
+        "pl": "W tym menu pozycje rozwijane nie będą wyświetlane",
+        "pt-BR": "Este menu não mostra itens suspensos",
+        "pt-PT": "Este menu não irá mostrar itens pendentes",
+        "sv": "Den här menyn kommer inte att visa objekt i rullgardinsmenyn",
+        "th": "เมนูนี้จะไม่แสดงรายการดรอปดาวน์",
+        "tr": "Bu menü açılır öğeleri göstermez",
+        "vi": "Menu này sẽ không hiển thị các mục thả xuống",
+        "zh-CN": "此菜单不会显示下拉项",
+        "zh-TW": "這個選單不會顯示下拉式項目"
+      }
+    },
+    {
+      "type": "checkbox",
+      "id": "show_payment_icons",
+      "label": {
+        "cs": "Zobrazit ikony plateb",
+        "da": "Vis betalingsikoner",
+        "de": "Zahlungssymbole anzeigen",
+        "en": "Show payment icons",
+        "es": "Mostrar iconos de pago",
+        "fi": "Näytä maksukuvakkeet",
+        "fr": "Afficher les icônes de paiement",
+        "it": "Mostra le icone di pagamento",
+        "ja": "支払いアイコンを表示する",
+        "ko": "결제 아이콘 표시",
+        "nb": "Vis betalingsikoner",
+        "nl": "Betalingspictogrammen weergeven",
+        "pl": "Pokaż ikony płatności",
+        "pt-BR": "Exibir ícones de pagamento",
+        "pt-PT": "Mostrar ícones de pagamento",
+        "sv": "Visa betalningsikoner",
+        "th": "แสดงไอคอนการชำระเงิน",
+        "tr": "Ödeme simgelerini göster",
+        "vi": "Hiển thị biểu tượng thanh toán",
+        "zh-CN": "显示付款图标",
+        "zh-TW": "顯示付款圖示"
+      },
+      "default": true
+    }
+  ]
+}
+{% endschema %}

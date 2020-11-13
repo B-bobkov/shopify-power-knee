@@ -1,0 +1,125 @@
+   
+<!-- /*   GENERAL STYLE */ -->
+
+<style>
+  .divider_bar {
+    
+    background-color: {{ block.settings.divider_bg_col }};
+    
+    padding-top: {{ block.settings.divider_lap_top_pad }}px!important;
+    padding-bottom: {{ block.settings.divider_lap_bt_pad }}px!important;
+    padding-left: {{ block.settings.divider_lap_side_pad }}px!important;
+    padding-right: {{ block.settings.divider_lap_side_pad }}px!important;
+    
+    {% if block.settings.divider_display_on == 'Mobile_Only' %}
+      display: none;
+    {% endif %}
+    
+    {% case block.settings.divider_border_style %}
+      {% when 'full_border' %}
+      	border: {{ block.settings.divider_border_thickness }}px solid {{ block.settings.divider_border_col }}!important;
+    
+      {% when 'top_bt_border' %}
+        border-top: {{ block.settings.divider_border_thickness }}px solid {{ block.settings.divider_border_col }}!important;
+        border-bottom: {{ block.settings.divider_border_thickness }}px solid {{ block.settings.divider_border_col }}!important;            
+    
+      {% when 'top_border_only' %}
+      	border-top: {{ block.settings.divider_border_thickness }}px solid {{ block.settings.divider_border_col }}!important;
+    
+      {% when 'bottom_border_only' %}
+      	border-bottom: {{ block.settings.divider_border_thickness }}px solid {{ block.settings.divider_border_col }}!important;
+    
+      {% when 'side_border_only' %}
+        border-left: {{ block.settings.divider_border_thickness }}px solid {{ block.settings.divider_border_col }}!important;
+        border-right: {{ block.settings.divider_border_thickness }}px solid {{ block.settings.divider_border_col }}!important;
+    
+    {% endcase %}
+    
+    {% if block.settings.divider_shadow_coverage > 0 %}
+    	box-shadow: 0 {{ block.settings.divider_shadow_coverage }}px 3px {{ block.settings.divider_shadow_col }}!important;
+    
+    	{% if block.settings.divider_shadow_coverage > block.settings.divider_margin_pd_bt_lap %}
+          margin-bottom: {{ block.settings.divider_shadow_coverage | plus: 1 }}px!important;
+    	{% endif %}
+    
+    {% endif %}
+    
+    margin-top: {{ block.settings.divider_margin_pd_top_lap }}px;
+    margin-bottom: {{ block.settings.divider_margin_pd_bt_lap }}px;
+    
+    text-align: {{ block.settings.divider_msg_align }};
+    
+  }
+  
+  {% if block.settings.divider_stick_bt_lap == true %}
+    @media only screen and (min-width: 600px) {
+      .divider_bar {
+        position: fixed;
+        bottom: 0px;
+        width: 500px;
+      }
+    }
+  {% endif %}
+  
+  {% if block.settings.divider_stick_bt_mob == true %}
+    @media only screen and (max-width: 600px) {
+      .divider_bar {
+        position: fixed;
+        bottom: 0px;
+        width: 356.44px;
+      }
+    }
+  {% endif %}  
+
+</style>
+
+<!-- /*   MOBILE STYLE */ -->
+
+<style>
+  @media only screen and (max-width: 600px) {
+    .divider_bar{
+      padding-top: {{ block.settings.divider_mob_top_pad }}px!important;
+      padding-bottom: {{ block.settings.divider_mob_bt_pad }}px!important;
+      padding-left: {{ block.settings.divider_mob_side_pad }}px!important;
+      padding-right: {{ block.settings.divider_mob_side_pad }}px!important;
+      
+      {% if block.settings.divider_display_on == 'Desktop_Only' %}
+      	display: none;
+      {% endif %}
+      
+      margin-top: {{ block.settings.divider_margin_pd_top_mob }}px;
+      margin-bottom: {{ block.settings.divider_margin_pd_bt_mob }}px;
+      
+      {% if block.settings.divider_shadow_coverage > 0 %}
+    	box-shadow: 0 {{ block.settings.divider_shadow_coverage }}px 3px {{ block.settings.divider_shadow_col }}!important;
+    
+    	{% if block.settings.divider_shadow_coverage > block.settings.divider_margin_pd_bt_mob %}
+          margin-bottom: {{ block.settings.divider_shadow_coverage | plus: 1 }}px!important;
+    	{% endif %}
+    
+      {% endif %}
+      
+    } 
+ 
+  }
+</style>
+<!-- End of mobile style -->
+
+<!-- /*   SPECIFIC STYLE */ -->
+
+<style>
+  .divider_bar > p {margin: 0; display: initial; vertical-align: middle;}
+  
+ </style>
+
+
+<div class="divider_bar">
+
+  
+	This is template for slide_cart_Divider
+  	
+  
+  
+</div>
+
+

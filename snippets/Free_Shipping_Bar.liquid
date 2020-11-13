@@ -1,0 +1,168 @@
+
+  
+<!-- /*   GENERAL STYLE */ -->
+
+<style>
+  .free_ship_bar {
+    
+    background-color: {{ block.settings.free_shipping_bar_bg_col }};
+    
+    padding-top: {{ block.settings.free_shipping_bar_lap_top_pad }}px!important;
+    padding-bottom: {{ block.settings.free_shipping_bar_lap_bt_pad }}px!important;
+    padding-left: {{ block.settings.free_shipping_bar_lap_side_pad }}px!important;
+    padding-right: {{ block.settings.free_shipping_bar_lap_side_pad }}px!important;
+    
+    {% if block.settings.free_shipping_bar_display_on == 'Mobile_Only' %}
+      display: none;
+    {% endif %}
+    
+    {% case block.settings.free_shipping_bar_border_style %}
+      {% when 'full_border' %}
+      	border: {{ block.settings.free_shipping_bar_border_thickness }}px solid {{ block.settings.free_shipping_bar_border_col }}!important;
+    
+      {% when 'top_bt_border' %}
+        border-top: {{ block.settings.free_shipping_bar_border_thickness }}px solid {{ block.settings.free_shipping_bar_border_col }}!important;
+        border-bottom: {{ block.settings.free_shipping_bar_border_thickness }}px solid {{ block.settings.free_shipping_bar_border_col }}!important;            
+    
+      {% when 'top_border_only' %}
+      	border-top: {{ block.settings.free_shipping_bar_border_thickness }}px solid {{ block.settings.free_shipping_bar_border_col }}!important;
+    
+      {% when 'bottom_border_only' %}
+      	border-bottom: {{ block.settings.free_shipping_bar_border_thickness }}px solid {{ block.settings.free_shipping_bar_border_col }}!important;
+    
+      {% when 'side_border_only' %}
+        border-left: {{ block.settings.free_shipping_bar_border_thickness }}px solid {{ block.settings.free_shipping_bar_border_col }}!important;
+        border-right: {{ block.settings.free_shipping_bar_border_thickness }}px solid {{ block.settings.free_shipping_bar_border_col }}!important;
+    
+    {% endcase %}
+    
+    {% if block.settings.free_shipping_bar_shadow_coverage > 0 %}
+    	box-shadow: 0 {{ block.settings.free_shipping_bar_shadow_coverage }}px 3px {{ block.settings.free_shipping_bar_shadow_col }}!important;
+    
+    	{% if block.settings.free_shipping_bar_shadow_coverage > block.settings.free_shipping_bar_margin_pd_bt_lap %}
+          margin-bottom: {{ block.settings.free_shipping_bar_shadow_coverage | plus: 1 }}px!important;
+    	{% endif %}
+    
+    {% endif %}
+    
+    margin-top: {{ block.settings.free_shipping_bar_margin_pd_top_lap }}px;
+    margin-bottom: {{ block.settings.free_shipping_bar_margin_pd_bt_lap }}px;
+    
+    text-align: {{ block.settings.free_shipping_bar_msg_align }};
+    
+  }
+  
+  {% if block.settings.free_shipping_bar_stick_bt_lap == true %}
+    @media only screen and (min-width: 600px) {
+      .free_ship_bar {
+        position: fixed;
+        bottom: 0px;
+        width: 500px;
+      }
+    }
+  {% endif %}
+  
+  {% if block.settings.free_shipping_bar_stick_bt_mob == true %}
+    @media only screen and (max-width: 600px) {
+      .free_ship_bar {
+        position: fixed;
+        bottom: 0px;
+        width: 356.44px;
+      }
+    }
+  {% endif %}  
+
+</style>
+
+<!-- /*   MOBILE STYLE */ -->
+
+<style>
+  @media only screen and (max-width: 600px) {
+    .free_ship_bar{
+      padding-top: {{ block.settings.free_shipping_bar_mob_top_pad }}px!important;
+      padding-bottom: {{ block.settings.free_shipping_bar_mob_bt_pad }}px!important;
+      padding-left: {{ block.settings.free_shipping_bar_mob_side_pad }}px!important;
+      padding-right: {{ block.settings.free_shipping_bar_mob_side_pad }}px!important;
+      
+      {% if block.settings.free_shipping_bar_display_on == 'Desktop_Only' %}
+      	display: none;
+      {% endif %}
+      
+      margin-top: {{ block.settings.free_shipping_bar_margin_pd_top_mob }}px;
+      margin-bottom: {{ block.settings.free_shipping_bar_margin_pd_bt_mob }}px;
+      
+      {% if block.settings.free_shipping_bar_shadow_coverage > 0 %}
+    	box-shadow: 0 {{ block.settings.free_shipping_bar_shadow_coverage }}px 3px {{ block.settings.free_shipping_bar_shadow_col }}!important;
+    
+    	{% if block.settings.free_shipping_bar_shadow_coverage > block.settings.free_shipping_bar_margin_pd_bt_mob %}
+          margin-bottom: {{ block.settings.free_shipping_bar_shadow_coverage | plus: 1 }}px!important;
+    	{% endif %}
+    
+      {% endif %}
+      
+    } 
+    
+    
+    .free_ship_bar > p, .free_ship_bar > p > a, .free_ship_bar > p > em, .free_ship_bar > p > strong {
+      font-size: {{ block.settings.free_shipping_bar_msg_font_mob_size }}px!important;
+      line-height: {{ block.settings.free_shipping_bar_msg_font_mob_size | plus: block.settings.free_shipping_bar_msg_line_height }}px!important;  
+  	}
+    
+    .free_ship_bar > i {
+      font-size: {{ block.settings.free_shipping_bar_icon_mob_size }}px!important;
+  	}
+  
+  }
+</style>
+<!-- End of mobile style -->
+
+<!-- /*   SPECIFIC STYLE */ -->
+
+<style>
+  .free_ship_bar > p {margin: 0; display: initial; vertical-align: middle;}
+  
+/*   font setting */
+  .free_ship_bar > p, .free_ship_bar > p > a, .free_ship_bar > p > em, .free_ship_bar > p > strong {
+    	font-weight: revert;
+  	    color: {{ block.settings.free_shipping_bar_msg_fcol }}!important;
+        font-family: {{ block.settings.free_shipping_bar_msg_font }}!important;
+/*         font-weight:  block.settings.free_shipping_bar_msg_font_weight !important; */
+    	
+        font-size: {{ block.settings.free_shipping_bar_msg_font_laptop_size }}px;
+    	line-height: {{ block.settings.free_shipping_bar_msg_font_laptop_size | plus: block.settings.free_shipping_bar_msg_line_height }}px;  
+    
+
+  }
+  
+/*   Icon styling */
+  .free_ship_bar > i {
+    {% if block.settings.free_shipping_bar_icon_pos == 'Before_Announcement' %}
+		padding-right: {{ block.settings.free_shipping_bar_icon_pd }}px;
+  	{% endif %}
+    {% if block.settings.free_shipping_bar_icon_pos == 'After_Announcement' %}
+		padding-left: {{ block.settings.free_shipping_bar_icon_pd }}px;
+  	{% endif %}
+    color: {{ block.settings.free_shipping_bar_icon_col }};
+    font-size: {{ block.settings.free_shipping_bar_icon_lap_size }}px;
+    vertical-align: middle;
+  }
+/*   End of Icon styling */
+
+</style>
+
+
+<div class="free_ship_bar">
+  {% if block.settings.free_shipping_bar_icon_pos == 'Before_Announcement' %}
+	{{ block.settings.free_shipping_bar_icon_code }}
+  {% endif %}
+  
+	{{ block.settings.free_shipping_bar_msg }}
+  	
+  {% if block.settings.free_shipping_bar_icon_pos == 'After_Announcement' %}
+	{{ block.settings.free_shipping_bar_icon_code }}
+  {% endif %}
+  
+  
+</div>
+
+

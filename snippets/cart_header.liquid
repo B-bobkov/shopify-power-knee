@@ -1,0 +1,156 @@
+{% if block.settings.logo_font contains 'Google' %}
+      <link href="//fonts.googleapis.com/css?family=.|{% if block.settings.cart_header_title_font contains 'Google' %}{{ block.settings.cart_header_title_font | replace: 'Google_', '' | replace: "'", "" }}:light,normal,bold{% endif %}" rel="stylesheet" type="text/css" />
+{% endif %}
+
+<style>
+  
+    .cart_header_title{
+    	vertical-align: middle;
+    }
+  
+    .custom_icon {
+      width: {{ block.settings.cart_header_icon_custom_img_icon_lap_width }}px;
+      margin: 0;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      -ms-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
+    }
+  
+    .cart_header_close_btn {
+        width: {{ block.settings.cart_header_icon_lap_size | plus: 20 }}px;   
+        height: {{ block.settings.cart_header_icon_lap_size | plus: 20 }}px;  
+        border-radius: 50%;
+      	background-color: {{ block.settings.cart_header_icon_bg_col }}!important;
+      	position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+      	right: {{ block.settings.cart_header_lap_side_pad }}px;
+      
+        display: inline-block;
+        outline: none;
+        border: none;
+        padding: 0!important;
+        box-shadow: unset!important;
+    }
+  
+    .cart_header_close_btn:hover{
+      	background-color: {{ block.settings.cart_header_icon_bg_col_on_hover }}!important;
+    }  
+  
+    .cart_header_close_btn > svg {
+        width: {{ block.settings.cart_header_icon_lap_size }}px;        
+    }  
+  
+    .cart_header_close_btn > svg > path {
+        stroke: {{ block.settings.cart_header_icon_col }};
+        fill: {{ block.settings.cart_header_icon_col }};
+    }
+  
+    .cart_header_close_btn > svg > path:hover {
+        stroke: {{ block.settings.cart_header_icon_col_on_hover }};
+        fill: {{ block.settings.cart_header_icon_col_on_hover }};
+    }
+  
+
+  
+    .cart_header{
+      	position: relative;
+        background-color: {{ block.settings.cart_header_bg_col }}!important;
+        padding-top: {{ block.settings.cart_header_lap_top_pad }}px!important;
+        padding-bottom: {{ block.settings.cart_header_lap_bt_pad }}px!important;
+        padding-left: {{ block.settings.cart_header_lap_side_pad }}px!important;
+        padding-right: {{ block.settings.cart_header_lap_side_pad }}px!important;
+        
+        {% case block.settings.cart_header_border_style %}
+            {% when 'full_border' %}
+                border: {{ block.settings.cart_header_border_thickness }}px solid {{ block.settings.cart_header_border_col }}!important;
+            {% when 'top_bt_border' %}
+                border-top: {{ block.settings.cart_header_border_thickness }}px solid {{ block.settings.cart_header_border_col }}!important;
+                border-bottom: {{ block.settings.cart_header_border_thickness }}px solid {{ block.settings.cart_header_border_col }}!important;            
+            {% when 'top_border_only' %}
+                border-top: {{ block.settings.cart_header_border_thickness }}px solid {{ block.settings.cart_header_border_col }}!important;
+            {% when 'bottom_border_only' %}
+                border-bottom: {{ block.settings.cart_header_border_thickness }}px solid {{ block.settings.cart_header_border_col }}!important;
+            {% when 'side_border_only' %}
+                border-left: {{ block.settings.cart_header_border_thickness }}px solid {{ block.settings.cart_header_border_col }}!important;
+                border-right: {{ block.settings.cart_header_border_thickness }}px solid {{ block.settings.cart_header_border_col }}!important;
+        {% endcase %}
+
+        {% if block.settings.cart_header_shadow_coverage > 0 %}
+          box-shadow: 0 {{ block.settings.cart_header_shadow_coverage }}px 3px {{ block.settings.cart_header_shadow_col }}!important;
+      	  margin-bottom: {{ block.settings.cart_header_shadow_coverage |plus: 1 }}px;
+        {% endif %}
+    }
+  
+    .cart_header_title {
+		display: inline-block;
+    }
+
+    .cart_header > .cart_header_title > p {
+        margin: 0;
+        color: {{ block.settings.cart_header_title_fcol }}!important;
+        font-family: {{ block.settings.cart_header_title_font | replace: 'Google_', '' | replace: '+', ' ' }}!important;
+        font-weight: {{ block.settings.cart_header_title_font_weight }}!important;
+        font-size: {{ block.settings.cart_header_title_font_laptop_size }}px!important;
+      	letter-spacing: {{ block.settings.cart_header_title_font_letter_spacing }}px;
+      	word-spacing: {{ block.settings.cart_header_title_font_laptop_size | times: -0.25 | plus: block.settings.cart_header_title_font_word_spacing }}px; 
+        
+    }
+
+    @media only screen and (max-width: 600px) {
+        .cart_header {
+            padding-top: {{ block.settings.cart_header_mob_top_pad }}px!important;
+            padding-bottom: {{ block.settings.cart_header_mob_bt_pad }}px!important;
+            padding-left: {{ block.settings.cart_header_mob_side_pad }}px!important;
+            padding-right: {{ block.settings.cart_header_mob_side_pad }}px!important;
+        }
+
+        .cart_header > .cart_header_title > p {
+            font-size: {{ block.settings.cart_header_title_font_mob_size }}px!important;
+          	word-spacing: {{ block.settings.cart_header_title_font_mob_size | times: -0.25 | plus: block.settings.cart_header_title_font_word_spacing }}px; 
+
+        }
+      
+        .cart_header_close_btn > svg {
+        	width: {{ block.settings.cart_header_icon_mob_size }}px;        
+    	}
+      
+        .cart_header_close_btn {
+            width: {{ block.settings.cart_header_icon_mob_size | plus: 20 }}px;   
+            height: {{ block.settings.cart_header_icon_mob_size | plus: 20 }}px;    
+          	right: {{ block.settings.cart_header_mob_side_pad }}px;
+    	}
+      
+        .custom_icon {
+     		width: {{ block.settings.cart_header_icon_custom_img_icon_mob_width }}px;
+    	}
+      
+    }
+</style>
+
+<div class="cart_header" id={{ block.id }} >
+    <div class="cart_header_title">{{ block.settings.cart_header_title }}</div>
+  	
+    {%- if block.settings.cart_header_icon_custom_img_icon != blank -%}
+       <button class="cart_header_close_btn" onclick="hideCart()">
+          <img class="custom_icon" src="{{ block.settings.cart_header_icon_custom_img_icon | img_url }}" alt="x">
+       </button>
+    {%- else -%}
+      <button class="cart_header_close_btn" onclick="hideCart()">
+        <svg width="10" viewBox="0 0 10 10">
+          <path d="M9.677 8.118a1.102 1.102 0 11-1.559 1.56L5 6.558 1.882 9.677a1.102 1.102 0 11-1.56-1.559L3.442 5 .323 1.882A1.102 1.102 0 111.882.322L5 3.442 8.118.323a1.102 1.102 0 111.56 1.559L6.558 5l3.118 3.118z" fill="#A1A1A1" fill-rule="nonzero">
+          </path>
+        </svg>
+      </button>
+    {%- endif -%}      
+  	
+</div>
+
+<!-- <script>
+  function hideCart() {
+    document.getElementById("CartDrawer").style.right = "0px";
+  }
+</script> -->
+

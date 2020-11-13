@@ -1,0 +1,189 @@
+
+  
+<!-- /*   GENERAL STYLE */ -->
+
+<style>
+  .cart_anbar {
+    
+    background-color: {{ block.settings.annbar_icon_bg_col }};
+    
+    padding-top: {{ block.settings.annbar_icon_lap_top_pad }}px!important;
+    padding-bottom: {{ block.settings.annbar_icon_lap_bt_pad }}px!important;
+    padding-left: {{ block.settings.annbar_icon_lap_side_pad }}px!important;
+    padding-right: {{ block.settings.annbar_icon_lap_side_pad }}px!important;
+    
+    {% if block.settings.annbar_icon_display_on == 'Mobile_Only' %}
+      display: none;
+    {% endif %}
+    
+    {% case block.settings.cart_icon_anbar_border_style %}
+      {% when 'full_border' %}
+      	border: {{ block.settings.cart_icon_anbar_border_thickness }}px solid {{ block.settings.cart_icon_anbar_border_col }}!important;
+    
+      {% when 'top_bt_border' %}
+        border-top: {{ block.settings.cart_icon_anbar_border_thickness }}px solid {{ block.settings.cart_icon_anbar_border_col }}!important;
+        border-bottom: {{ block.settings.cart_icon_anbar_border_thickness }}px solid {{ block.settings.cart_icon_anbar_border_col }}!important;            
+    
+      {% when 'top_border_only' %}
+      	border-top: {{ block.settings.cart_icon_anbar_border_thickness }}px solid {{ block.settings.cart_icon_anbar_border_col }}!important;
+    
+      {% when 'bottom_border_only' %}
+      	border-bottom: {{ block.settings.cart_icon_anbar_border_thickness }}px solid {{ block.settings.cart_icon_anbar_border_col }}!important;
+    
+      {% when 'side_border_only' %}
+        border-left: {{ block.settings.cart_icon_anbar_border_thickness }}px solid {{ block.settings.cart_icon_anbar_border_col }}!important;
+        border-right: {{ block.settings.cart_icon_anbar_border_thickness }}px solid {{ block.settings.cart_icon_anbar_border_col }}!important;
+    
+    {% endcase %}
+    
+    {% if block.settings.cart_icon_anbar_shadow_coverage > 0 %}
+    	box-shadow: 0 {{ block.settings.cart_icon_anbar_shadow_coverage }}px 3px {{ block.settings.cart_icon_anbar_shadow_col }}!important;
+    
+    	{% if block.settings.cart_icon_anbar_shadow_coverage > block.settings.cart_icon_anbar_margin_pd_bt_lap %}
+          margin-bottom: {{ block.settings.cart_icon_anbar_shadow_coverage | plus: 1 }}px!important;
+    	{% endif %}
+    
+    {% endif %}
+    
+    margin-top: {{ block.settings.cart_icon_anbar_margin_pd_top_lap }}px;
+    margin-bottom: {{ block.settings.cart_icon_anbar_margin_pd_bt_lap }}px;
+    
+    text-align: {{ block.settings.cart_annbar_icon_msg_align }};
+    
+  }
+  
+  {% if block.settings.annbar_icon_stick_bt_lap == true %}
+    @media only screen and (min-width: 600px) {
+      .cart_anbar {
+        position: fixed;
+        bottom: 0px;
+        width: 500px;
+      }
+    }
+  {% endif %}
+  
+  {% if block.settings.annbar_icon_stick_bt_mob == true %}
+    @media only screen and (max-width: 600px) {
+      .cart_anbar {
+        position: fixed;
+        bottom: 0px;
+        width: 356.44px;
+      }
+    }
+  {% endif %}  
+
+</style>
+
+<!-- /*   MOBILE STYLE */ -->
+
+<style>
+  @media only screen and (max-width: 600px) {
+    .cart_anbar{
+      padding-top: {{ block.settings.annbar_icon_mob_top_pad }}px!important;
+      padding-bottom: {{ block.settings.annbar_icon_mob_bt_pad }}px!important;
+      padding-left: {{ block.settings.annbar_icon_mob_side_pad }}px!important;
+      padding-right: {{ block.settings.annbar_icon_mob_side_pad }}px!important;
+      
+      {% if block.settings.annbar_icon_display_on == 'Desktop_Only' %}
+      	display: none;
+      {% endif %}
+      
+      margin-top: {{ block.settings.cart_icon_anbar_margin_pd_top_mob }}px;
+      margin-bottom: {{ block.settings.cart_icon_anbar_margin_pd_bt_mob }}px;
+      
+      {% if block.settings.cart_icon_anbar_shadow_coverage > 0 %}
+    	box-shadow: 0 {{ block.settings.cart_icon_anbar_shadow_coverage }}px 3px {{ block.settings.cart_icon_anbar_shadow_col }}!important;
+    
+    	{% if block.settings.cart_icon_anbar_shadow_coverage > block.settings.cart_icon_anbar_margin_pd_bt_mob %}
+          margin-bottom: {{ block.settings.cart_icon_anbar_shadow_coverage | plus: 1 }}px!important;
+    	{% endif %}
+    
+      {% endif %}
+      
+    } 
+    
+    
+    .cart_anbar > p, .cart_anbar > p > a, .cart_anbar > p > em, .cart_anbar > p > strong {
+      font-size: {{ block.settings.cart_icon_annbar_msg_font_mob_size }}px!important;
+      line-height: {{ block.settings.cart_icon_annbar_msg_font_mob_size | plus: block.settings.cart_icon_annbar_msg_line_height }}px!important;  
+  	}
+    
+    .cart_anbar > i {
+      font-size: {{ block.settings.icon_anbar_icon_mob_size }}px!important;
+  	}
+  
+  }
+</style>
+<!-- End of mobile style -->
+
+<!-- /*   SPECIFIC STYLE */ -->
+
+<style>
+  .cart_anbar > p {margin: 0; display: initial; vertical-align: middle;}
+  
+/*   font setting */
+  .clipboard_copied_msg_for_anbar, .cart_anbar > p, .cart_anbar > p > a, .cart_anbar > p > em, .cart_anbar > p > strong {
+    	font-weight: revert;
+  	    color: {{ block.settings.cart_icon_annbar_msg_fcol }}!important;
+        font-family: {{ block.settings.cart_icon_annbar_msg_font }}!important;
+/*         font-weight:  block.settings.cart_icon_annbar_msg_font_weight !important; */
+    	
+        font-size: {{ block.settings.cart_icon_annbar_msg_font_laptop_size }}px;
+    	line-height: {{ block.settings.cart_icon_annbar_msg_font_laptop_size | plus: block.settings.cart_icon_annbar_msg_line_height }}px;  
+    
+
+  }
+  
+/*   Icon styling */
+  .cart_anbar > i {
+    {% if block.settings.icon_anbar_icon_pos == 'Before_Announcement' %}
+		padding-right: {{ block.settings.icon_anbar_icon_pd }}px;
+  	{% endif %}
+    {% if block.settings.icon_anbar_icon_pos == 'After_Announcement' %}
+		padding-left: {{ block.settings.icon_anbar_icon_pd }}px;
+  	{% endif %}
+    color: {{ block.settings.icon_anbar_icon_col }};
+    font-size: {{ block.settings.icon_anbar_icon_lap_size }}px;
+    vertical-align: middle;
+  }
+/*   End of Icon styling */
+
+</style>
+
+  
+
+
+
+
+<div class="cart_anbar" {% if block.settings.cart_anbar_icon_enable_clicktocopy == true %}data-toggle="tooltip" title="Click to copy code to clipboard" onclick="var copyText = document.getElementById('copy_text_for_anbar');copyText.select();document.getElementById('copy_text_for_anbar').setSelectionRange(0, 99999);document.execCommand('copy'); $('.cart_anbar>p, .cart_anbar>i').hide(2).delay(1000).show(2); $('.clipboard_copied_msg_for_anbar').show(1).delay(1000).hide(1);"{% endif %}>
+  {% if block.settings.icon_anbar_icon_pos == 'Before_Announcement' %}
+	{{ block.settings.icon_anbar_icon_code }}
+  {% endif %}
+  
+	{{ block.settings.cart_annbar_icon_msg }}
+  	
+  {% if block.settings.icon_anbar_icon_pos == 'After_Announcement' %}
+	{{ block.settings.icon_anbar_icon_code }}
+  {% endif %}
+  
+  <input style="position:fixed; top:-100px;" type="text" id="copy_text_for_anbar" value={{ block.settings.cart_anbar_icon_code_to_add_to_clipboard }} >
+  <span class="clipboard_copied_msg_for_anbar" style="display: none;"> {{ block.settings.cart_icon_anbar_msg_when_copied }} </span>
+  
+</div>
+
+
+{% if block.settings.cart_anbar_icon_enable_clicktocopy == true %}
+
+  <style>
+    .cart_anbar {cursor: pointer;}
+  </style>
+
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+  <script>
+    $(document).ready(function(){
+      $('[data-toggle="tooltip"]').tooltip();   
+    });
+  </script>
+
+{% endif %}
