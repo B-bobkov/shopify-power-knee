@@ -1,4 +1,10 @@
+{% if block.settings.shipping_prc_sum_shipping_price_font contains 'Google' %}
+<link href="//fonts.googleapis.com/css?family={{ block.settings.shipping_prc_sum_shipping_price_font | replace: 'Google_', '' | replace: "'", "" }}:light,normal,bold" rel="stylesheet" type="text/css" />
+{% endif %}
 
+{% if block.settings.shipping_prc_sum_shipping_title_font contains 'Google' %}
+<link href="//fonts.googleapis.com/css?family={{ block.settings.shipping_prc_sum_shipping_title_font | replace: 'Google_', '' | replace: "'", "" }}:light,normal,bold" rel="stylesheet" type="text/css" />
+{% endif %}
 
 <!-- /*   GENERAL STYLE */ -->
 
@@ -51,7 +57,7 @@
     text-align: {{ block.settings.shipping_price_summ_msg_align }};
     
   }
-  
+{% comment %}   
   {% if block.settings.shipping_price_summ_stick_bt_lap == true %}
     @media only screen and (min-width: 600px) {
       .shipping_price_summ_bar {
@@ -70,7 +76,7 @@
         width: 356.44px;
       }
     }
-  {% endif %}  
+  {% endif %}   {% endcomment %}
 
 </style>
 
@@ -109,18 +115,84 @@
 <!-- /*   SPECIFIC STYLE */ -->
 
 <style>
-  .shipping_price_summ_bar > p {margin: 0; display: initial; vertical-align: middle;}
+    .shipping_prc_bar_left>p, .shipping_prc_bar_right>p, .shipping_prc_bar_right_price>p {margin: 0; display: table-cell; vertical-align: middle;}
   
+    .shipping_prc_bar_left>p {
+        color: {{ block.settings.shipping_prc_sum_shipping_title_fcol }};
+        font-family: {{ block.settings.shipping_prc_sum_shipping_title_font | replace: 'Google_', '' | replace: '+', ' ' }};
+        font-weight: {{ block.settings.shipping_prc_sum_shipping_title_font_weight }};
+        font-size: {{ block.settings.shipping_prc_sum_shipping_title_font_laptop_size }}px;
+    }
+
+    @media only screen and (max-width: 600px) {
+        .shipping_prc_bar_left>p {
+            font-size: {{ block.settings.shipping_prc_sum_shipping_title_font_mob_size }}px;
+        }
+    }
+
+    .shipping_prc_bar_right_price>p {
+        color: {{ block.settings.shipping_prc_sum_shipping_price_fcol }};
+        font-family: {{ block.settings.shipping_prc_sum_shipping_price_font | replace: 'Google_', '' | replace: '+', ' ' }};
+        font-weight: {{ block.settings.shipping_prc_sum_shipping_price_font_weight }};
+        font-size: {{ block.settings.shipping_prc_sum_shipping_price_font_laptop_size }}px;
+    }
+
+    @media only screen and (max-width: 600px) {
+        .shipping_prc_bar_right_price>p {
+            font-size: {{ block.settings.shipping_prc_sum_shipping_price_font_mob_size }}px;
+        }
+    }
+
+    #shipping_price_currency{
+        color: {{ block.settings.shipping_prc_currency_fcol }};
+        font-family: {{ block.settings.shipping_prc_currency_font }};
+        font-weight: {{ block.settings.shipping_prc_currency_font_weight }};
+        font-size: {{ block.settings.shipping_prc_currency_font_laptop_size }}px;
+    }
+
+    @media only screen and (max-width: 600px) {
+        #shipping_price_currency{
+            font-size: {{ block.settings.shipping_prc_currency_font_mob_size }}px;
+        }
+    }
+
  </style>
 
 
-<div class="shipping_price_summ_bar">
+<div class="shipping_price_summ_bar" style="display: flow-root;">
 
   
-	This is template for Shipping_Price_Summary
+    <div class="shipping_prc_bar_left" style="float: left;">
+        {{ block.settings.shipping_prc_sum_shipping_title }}
+    </div>
+    <div class="shipping_prc_bar_right" style="float: right; display: flex;">
+        <div class="shipping_prc_bar_right_price">
+            {{ block.settings.shipping_prc_sum_shipping_price_title }}
+        </div>
+        {%- if block.settings.shipping_prc_show_currency -%}
+            <p id="shipping_price_currency">{{ cart.currency.iso_code }}</p>
+        {%- endif -%}
+    </div>
+
   	
-  
+
+
+
+
+
+  {% if block.settings.shipping_price_summ_stick_bt_lap == true %}  
+    <input class="sticky_lap" type="text" value="stick_lap_yes">
+  {% else %}
+    <input class="sticky_lap" type="text" value="stick_lap_no">
+  {% endif %}
+
+  {% if block.settings.shipping_price_summ_stick_bt_mob == true %}  
+    <input class="sticky_mob" type="text" value="stick_mob_yes">
+  {% else %}
+    <input class="sticky_mob" type="text" value="stick_mob_no">
+  {% endif %}  	
   
 </div>
+
 
 

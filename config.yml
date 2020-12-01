@@ -2,3 +2,5 @@ development:
   password: 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
   theme_id: "97844396164"
   store: power-knee-demo.myshopify.com
+  ignore_files:
+  - config/settings_data.json

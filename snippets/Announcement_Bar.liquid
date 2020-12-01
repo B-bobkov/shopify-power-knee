@@ -1,3 +1,6 @@
+{% if block.settings.cart_icon_annbar_msg_font contains 'Google' %}
+<link href="//fonts.googleapis.com/css?family={{ block.settings.cart_icon_annbar_msg_font | replace: 'Google_', '' | replace: "'", "" }}:light,normal,bold" rel="stylesheet" type="text/css" />
+{% endif %}
 
   
 <!-- /*   GENERAL STYLE */ -->
@@ -51,7 +54,7 @@
     text-align: {{ block.settings.cart_annbar_icon_msg_align }};
     
   }
-  
+{% comment %}   
   {% if block.settings.annbar_icon_stick_bt_lap == true %}
     @media only screen and (min-width: 600px) {
       .cart_anbar {
@@ -70,7 +73,7 @@
         width: 356.44px;
       }
     }
-  {% endif %}  
+  {% endif %}   {% endcomment %}
 
 </style>
 
@@ -125,11 +128,11 @@
   .clipboard_copied_msg_for_anbar, .cart_anbar > p, .cart_anbar > p > a, .cart_anbar > p > em, .cart_anbar > p > strong {
     	font-weight: revert;
   	    color: {{ block.settings.cart_icon_annbar_msg_fcol }}!important;
-        font-family: {{ block.settings.cart_icon_annbar_msg_font }}!important;
+        font-family: {{ block.settings.cart_icon_annbar_msg_font | replace: 'Google_', '' | replace: '+', ' ' }}!important;
 /*         font-weight:  block.settings.cart_icon_annbar_msg_font_weight !important; */
     	
         font-size: {{ block.settings.cart_icon_annbar_msg_font_laptop_size }}px;
-    	line-height: {{ block.settings.cart_icon_annbar_msg_font_laptop_size | plus: block.settings.cart_icon_annbar_msg_line_height }}px;  
+    	  line-height: {{ block.settings.cart_icon_annbar_msg_font_laptop_size | plus: block.settings.cart_icon_annbar_msg_line_height }}px;  
     
 
   }
@@ -169,6 +172,16 @@
   <input style="position:fixed; top:-100px;" type="text" id="copy_text_for_anbar" value={{ block.settings.cart_anbar_icon_code_to_add_to_clipboard }} >
   <span class="clipboard_copied_msg_for_anbar" style="display: none;"> {{ block.settings.cart_icon_anbar_msg_when_copied }} </span>
   
+    
+    <input class="sticky_lap" type="text" {% if block.settings.annbar_icon_stick_bt_lap == true %}value="stick_lap_yes"{% else %}value="stick_lap_no" {% endif %}>
+
+
+  {% if block.settings.annbar_icon_stick_bt_mob == true %}  
+    <input class="sticky_mob" type="text" value="stick_mob_yes">
+  {% else %}
+    <input class="sticky_mob" type="text" value="stick_mob_no">
+  {% endif %}  	
+
 </div>
 
 
@@ -177,13 +190,5 @@
   <style>
     .cart_anbar {cursor: pointer;}
   </style>
-
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
-  <script>
-    $(document).ready(function(){
-      $('[data-toggle="tooltip"]').tooltip();   
-    });
-  </script>
 
 {% endif %}

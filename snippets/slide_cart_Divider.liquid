@@ -2,7 +2,7 @@
 <!-- /*   GENERAL STYLE */ -->
 
 <style>
-  .divider_bar {
+  #{{block.id}} {
     
     background-color: {{ block.settings.divider_bg_col }};
     
@@ -51,9 +51,9 @@
     
   }
   
-  {% if block.settings.divider_stick_bt_lap == true %}
+  {% comment %} {% if block.settings.divider_stick_bt_lap == true %}
     @media only screen and (min-width: 600px) {
-      .divider_bar {
+      #{{block.id}} {
         position: fixed;
         bottom: 0px;
         width: 500px;
@@ -63,13 +63,13 @@
   
   {% if block.settings.divider_stick_bt_mob == true %}
     @media only screen and (max-width: 600px) {
-      .divider_bar {
+      #{{block.id}} {
         position: fixed;
         bottom: 0px;
         width: 356.44px;
       }
     }
-  {% endif %}  
+  {% endif %}   {% endcomment %}
 
 </style>
 
@@ -77,7 +77,7 @@
 
 <style>
   @media only screen and (max-width: 600px) {
-    .divider_bar{
+    #{{block.id}}{
       padding-top: {{ block.settings.divider_mob_top_pad }}px!important;
       padding-bottom: {{ block.settings.divider_mob_bt_pad }}px!important;
       padding-left: {{ block.settings.divider_mob_side_pad }}px!important;
@@ -108,17 +108,48 @@
 <!-- /*   SPECIFIC STYLE */ -->
 
 <style>
-  .divider_bar > p {margin: 0; display: initial; vertical-align: middle;}
   
+  #{{block.id}}>.divider_line {
+    display: block;
+    height: {{ block.settings.divider_line_thick }}px;
+    background: {{ block.settings.divider_line_col }};
+    width: {{ block.settings.divider_line_length }}%;
+    {% case block.settings.divider_line_align %}
+      {% when "left" %}
+      margin-left: auto;
+
+      {% when "center" %}
+      margin-left: auto;
+      margin-right: auto;
+        
+      {% when "right" %}
+      margin-left: auto;
+      margin-right: auto;
+    {% endcase %}
+
+    {% if block.settings.divider_line_shadow_enable == true %}
+      box-shadow: 0 {{ block.settings.divider_line_shadow_cover }}px 3px {{ block.settings.divider_line_shadow_col }};
+    {% endif %}
+  }
  </style>
 
 
-<div class="divider_bar">
+<div id="{{block.id}}"  >
 
   
-	This is template for slide_cart_Divider
+	<div class="divider_line"></div>
   	
-  
+  {% if block.settings.divider_stick_bt_lap == true %}  
+    <input class="sticky_lap" type="text" value="stick_lap_yes">
+  {% else %}
+    <input class="sticky_lap" type="text" value="stick_lap_no">
+  {% endif %}
+
+  {% if block.settings.divider_stick_bt_mob == true %}  
+    <input class="sticky_mob" type="text" value="stick_mob_yes">
+  {% else %}
+    <input class="sticky_mob" type="text" value="stick_mob_no">
+  {% endif %}  	
   
 </div>
 

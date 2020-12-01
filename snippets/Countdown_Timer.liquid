@@ -1,71 +1,61 @@
+{% if block.settings.cart_with_timer_annbar_msg_font contains 'Google' %}
+<link href="//fonts.googleapis.com/css?family={{ block.settings.cart_with_timer_annbar_msg_font | replace: 'Google_', '' | replace: "'", "" }}:light,normal,bold" rel="stylesheet" type="text/css" />
+{% endif %}
+{% if block.settings.timer_font contains 'Google' %}
+<link href="//fonts.googleapis.com/css?family={{ block.settings.timer_font | replace: 'Google_', '' | replace: "'", "" }}:light,normal,bold" rel="stylesheet" type="text/css" />
+{% endif %}
 
 <style>
-  
-  {% if block.settings.annbar_with_timer_stick_bt_lap == true %}
-    @media only screen and (min-width: 600px) {
-      .countdown_timer_header_wrapper {
-        position: fixed;
-        bottom: 0px;
-        width: 500px;
-      }
-    }
-  {% endif %}
+    {% if block.settings.cart_with_timer_enable_clicktocopy == true %}
+        .countdown_timer_header_wrapper {cursor: pointer;}
+    {% endif %}
 
-  {% if block.settings.annbar_with_timer_stick_bt_mob == true %}
-    @media only screen and (max-width: 600px) {
-      .countdown_timer_header_wrapper {
-        position: fixed;
-        bottom: 0px;
-        width: 356.44px;
-      }
-    }
-  {% endif %}
-  
   .show_when_timer_expired {
   	display: none;
   }
   
   .timer_block {
         color: {{ block.settings.timer_fcol }}!important;
-        font-family: {{ block.settings.timer_font }}!important;
+        font-family: {{ block.settings.timer_font | replace: 'Google_', '' | replace: '+', ' ' }}!important;
         font-weight: {{ block.settings.timer_font_weight }}!important;
         font-size: {{ block.settings.timer_font_laptop_size }}px!important;
   }
   
-/*   MSG STYLING */
   .before_timer > p, .after_timer > p , .countdown_timer_header > p {font-weight: unset;}
   
   .show_when_timer_expired, .clipboard_copied_msg {
   	    color: {{ block.settings.cart_with_timer_annbar_msg_fcol }}!important;
-        font-family: {{ block.settings.cart_with_timer_annbar_msg_font }}!important;
+        font-family: {{ block.settings.cart_with_timer_annbar_msg_font | replace: 'Google_', '' | replace: '+', ' ' }}!important;
 /*         font-weight:  block.settings.cart_with_timer_annbar_msg_font_weight !important; */
     	
         font-size: {{ block.settings.cart_with_timer_annbar_msg_font_laptop_size }}px!important;
-    	line-height: {{ block.settings.cart_with_timer_annbar_msg_font_laptop_size | plus: block.settings.cart_with_timer_annbar_msg_line_height }}px;  
+        letter-spacing: {{ block.settings.cart_with_timer_annbar_msg_letter_spacing }}px!important;
+    	  line-height: {{ block.settings.cart_with_timer_annbar_msg_font_laptop_size | plus: block.settings.cart_with_timer_annbar_msg_line_height }}px;  
   }
   .countdown_timer_header > p, .before_timer > p, .before_timer > p > em, .before_timer > p> strong, .before_timer > p > a, .after_timer > p, .after_timer > p > em, .after_timer > p > strong, .after_timer > p > a {
   	    color: {{ block.settings.cart_with_timer_annbar_msg_fcol }}!important;
-        font-family: {{ block.settings.cart_with_timer_annbar_msg_font }}!important;
+        font-family: {{ block.settings.cart_with_timer_annbar_msg_font | replace: 'Google_', '' | replace: '+', ' ' }}!important;
 /*         font-weight:  block.settings.cart_with_timer_annbar_msg_font_weight !important; */
     	
         font-size: {{ block.settings.cart_with_timer_annbar_msg_font_laptop_size }}px!important;
-    	line-height: {{ block.settings.cart_with_timer_annbar_msg_font_laptop_size | plus: block.settings.cart_with_timer_annbar_msg_line_height }}px;
-    	display: contents;
+    	  line-height: {{ block.settings.cart_with_timer_annbar_msg_font_laptop_size | plus: block.settings.cart_with_timer_annbar_msg_line_height }}px;
+    	  display: contents;
+        letter-spacing: {{ block.settings.cart_with_timer_annbar_msg_letter_spacing }}px!important;
+
   }
   
   
 /*   GENERAL STYLING */
   
   .countdown_timer_header{
+    position: relative;
     text-align: {{ block.settings.cart_annbar_with_timer_msg_align }};
-/*     bg col */
     background-color: {{ block.settings.annbar_with_timer_bg_col }}!important;
-/*     padding */
     padding-top: {{ block.settings.annbar_with_timer_lap_top_pad }}px!important;
     padding-bottom: {{ block.settings.annbar_with_timer_lap_bt_pad }}px!important;
     padding-left: {{ block.settings.annbar_with_timer_lap_side_pad }}px!important;
     padding-right: {{ block.settings.annbar_with_timer_lap_side_pad }}px!important;
-/*     border */
+
     {% case block.settings.cart_timer_anbar_border_style %}
       {% when 'full_border' %}
       	border: {{ block.settings.cart_timer_anbar_border_thickness }}px solid {{ block.settings.cart_timer_anbar_border_col }}!important;
@@ -83,10 +73,8 @@
       {% when 'side_border_only' %}
         border-left: {{ block.settings.cart_timer_anbar_border_thickness }}px solid {{ block.settings.cart_timer_anbar_border_col }}!important;
         border-right: {{ block.settings.cart_timer_anbar_border_thickness }}px solid {{ block.settings.cart_timer_anbar_border_col }}!important;
-    
     {% endcase %}
     
-/*     shadow */
     {% if block.settings.cart_timer_anbar_shadow_coverage > 0 %}
     	box-shadow: 0 {{ block.settings.cart_timer_anbar_shadow_coverage }}px 3px {{ block.settings.cart_timer_anbar_shadow_col }}!important;
     	
@@ -96,32 +84,26 @@
     
     {% endif %}
     
-/*     margin */
     margin-top: {{ block.settings.cart_timer_anbar_margin_pd_top_lap }}px;
     margin-bottom: {{ block.settings.cart_timer_anbar_margin_pd_bt_lap }}px;
     
-/* 	display settings */
     {% if block.settings.annbar_with_timer_display_on == 'Mobile_Only' %}
       display: none;
     {% endif %}
   }
   
   
-  
 /*   mobile style */
   
   @media only screen and (max-width: 600px) {
-/*     general styling */
+
     .countdown_timer_header {
-/*       padding */
       padding-top: {{ block.settings.annbar_with_timer_mob_top_pad }}px!important;
       padding-bottom: {{ block.settings.annbar_with_timer_mob_bt_pad }}px!important;
       padding-left: {{ block.settings.annbar_with_timer_mob_side_pad }}px!important;
       padding-right: {{ block.settings.annbar_with_timer_mob_side_pad }}px!important;
-/*       margin */
       margin-top: {{ block.settings.cart_timer_anbar_margin_pd_top_mob }}px;
       margin-bottom: {{ block.settings.cart_timer_anbar_margin_pd_bt_mob }}px;      
-/*   display on setting */
     {% if block.settings.annbar_with_timer_display_on == 'Desktop_Only' %}
       display: none;
     {% endif %}
@@ -142,51 +124,94 @@
     .show_when_timer_expired, .clipboard_copied_msg, .countdown_timer_header > p, .before_timer > p, .before_timer > p > em, .before_timer > p> strong, .before_timer > p > a, .after_timer > p, .after_timer > p > em, .after_timer > p > strong, .after_timer > p > a {
       font-size: {{ block.settings.cart_with_timer_annbar_msg_font_mob_size }}px!important;
       line-height: {{ block.settings.cart_with_timer_annbar_msg_font_mob_size | plus: block.settings.cart_with_timer_annbar_msg_line_height }}px
-
   	}
     
     .timer_block {
       font-size: {{ block.settings.timer_font_mob_size }}px!important;
-  	}
-    
+  	}    
   }
-/*   end of mobile style */
   
+  .clipboard_copied_msg{
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+  }
 </style>
 
 
 
-<div class="countdown_timer_header_wrapper"  id="copy_code_panel" {% if block.settings.cart_with_timer_enable_clicktocopy == true %}data-toggle="tooltip" title="Click to copy code to clipboard" onclick="var copyText = document.getElementById('myInput');copyText.select();document.getElementById('myInput').setSelectionRange(0, 99999);document.execCommand('copy'); $('.showing_when_timer_works').hide(2).delay(1000).show(2); $('.clipboard_copied_msg').show(1).delay(1000).hide(1);"{% endif %}>
-  <div class="countdown_timer_header">
-    {% assign words = block.settings.cart_annbar_with_timer_msg | split: '(TIMER)' %}
+<div class="countdown_timer_header_wrapper"  id="copy_code_panel" 
+{% if block.settings.cart_with_timer_enable_clicktocopy == true %}
+data-toggle="tooltip" 
+title="Click to copy code to clipboard" 
+onclick="
+  var copyText = document.getElementById('myInput');
+  document.getElementById('myInput').setSelectionRange(0, 99999);document.execCommand('copy'); 
+  $('.showing_when_timer_works').css('visibility', 'hidden'); 
+  $('.clipboard_copied_msg').show(1).delay(1000).hide(1);
+  setTimeout( function(){$('.showing_when_timer_works').css('visibility', 'visible'); }, 1000 );
+"{% endif %}
+{% if block.settings.cart_with_timer_click_to_enter_discount == 'Enable_click_to_enter_discount' %}
+onmouseup="
+  var copyText = document.getElementById('myInput');
+  $('#coupon_code').val(copyText.value); copyText.select();
+"{% endif %}>
+    <div class="countdown_timer_header">
+    
+    
+    {% assign richtextContent = block.settings.cart_annbar_with_timer_msg | split: '&lt;#' %}
+    {% assign colorCode_Text = richtextContent[1] | split: '&lt;/#&gt;' | first %}
+    {% assign tailText = richtextContent[1] | split: '&lt;/#&gt;' | last %}
+    {% assign colorCode = colorCode_Text | split: '&gt;' | first %}
+    {% assign colorText = colorCode_Text | split: '&gt;' | last %}
+    {% assign finalTitle = richtextContent[0] | append: '<span style="color: #' | append: colorCode | append: ';">' | append: colorText | append: '</span>' | append: tailText | replace: '&lt;u&gt;', '<u>' | replace: '&lt;/u&gt;', "</u>"  %} 
+    
+    
 
-    <span class="countdown_timer_msg before_timer showing_when_timer_works"> {{ words[0] }}</p> </span>
-
-    {% if block.settings.cart_annbar_with_timer_msg contains "(TIMER)" %}
-      <span class="timer_block showing_when_timer_works">{{ block.settings.cart_with_timer_txt_b4_timer }}</span>
-
-      <span class="timer_block js-timer-minutes showing_when_timer_works">00</span>
-      <span class="timer_block showing_when_timer_works">:</span>
-      <span class="timer_block js-timer-seconds showing_when_timer_works">00</span>
-
-      <span class="txt_after_timer" style="display: none;">{{ block.settings.cart_with_timer_txt_after_timer }}</span>
-    {% endif %}
-
-    <span class="countdown_timer_msg after_timer showing_when_timer_works"><p>{{ words[1] }}</span>
-
-    <span class="countdown_timer_msg show_when_timer_expired"> {{ block.settings.cart_with_timer_what_to_do_msg }} </span>
-    <span class="countdown_timer_msg clipboard_copied_msg" style="display: none;"> {{ block.settings.cart_with_timer_msg_when_copied }} </span>
-    <input style="position:fixed; top:-100px;" type="text" id="myInput" value={{ block.settings.cart_with_timer_code_to_add_to_clipboard }} >
 
 
-  </div>
+        {% assign words = finalTitle | split: '(TIMER)' %}
+
+        <span class="countdown_timer_msg before_timer showing_when_timer_works"> {{ words[0] }}</p> </span>
+
+        {% if finalTitle contains "(TIMER)" %}
+            <span class="timer_block showing_when_timer_works">{{ block.settings.cart_with_timer_txt_b4_timer }}</span>
+
+            <span class="timer_block js-timer-minutes showing_when_timer_works">00</span>
+            <span class="timer_block showing_when_timer_works">:</span>
+            <span class="timer_block js-timer-seconds showing_when_timer_works">00</span>
+
+            <span class="txt_after_timer" style="display: none;">{{ block.settings.cart_with_timer_txt_after_timer }}</span>
+        {% endif %}
+
+        <span class="countdown_timer_msg after_timer showing_when_timer_works"><p>{{ words[1] }}</span>
+
+        <span class="countdown_timer_msg show_when_timer_expired"> {{ block.settings.cart_with_timer_what_to_do_msg }} </span>
+        <span class="countdown_timer_msg clipboard_copied_msg" style="display: none;"> {{ block.settings.cart_with_timer_msg_when_copied }} </span>
+        <input style="position:fixed; top:-100px;" type="text" id="myInput" value={{ block.settings.cart_with_timer_code_to_add_to_clipboard }} >
+
+    </div>
+   
+
+    <input class="sticky_lap" type="text" {% if block.settings.annbar_with_timer_stick_bt_lap == true %}  value="stick_lap_yes" {% else %}value="stick_lap_no"{% endif %}>
+    {% if block.settings.annbar_with_timer_stick_bt_mob == true %}  
+        <input class="sticky_mob" type="text" value="stick_mob_yes">
+    {% else %}
+        <input class="sticky_mob" type="text" value="stick_mob_no">
+    {% endif %}  	  
+ 
+
 </div>
 
 
 
 <!-- Timer script -->
 <script type="text/javascript">
-  
+  var distance;
   var second = 1000,
       minute = second * 60,
       hour = minute * 60,
@@ -194,48 +219,34 @@
       
   var countDown = new Date().getTime() + {{ block.settings.cart_with_timer_min | times: 60 | plus: block.settings.cart_with_timer_sec | times: 1000 }},
                            
-       x = setInterval(function() {
-      var now = new Date().getTime(),
-          distance = countDown - now;
-       if (distance < 0) {
-           
-         {% case block.settings.cart_with_timer_what_to_do %}
-         
-           {% when 'Show_Message' %}
-				$('.showing_when_timer_works').hide();
-         		$('.show_when_timer_expired').show();
-         		
-           {% when 'Hide_Timer' %}
-				$('.timer_block').hide();
-           {% when 'Hide_Entire_Element' %}
-                $('.countdown_timer_header').hide();
-         {% endcase %}
-         
-         return;
-         
-       } 
-      document.querySelector('.js-timer-minutes').innerText = Math.floor((distance % (hour)) / (minute)),
-      document.querySelector('.js-timer-seconds').innerText = ("0" + Math.floor((distance % (minute)) / second)).slice(-2) + document.querySelector('.txt_after_timer').innerText;
+        x = setInterval(function() {
+        var now = new Date().getTime(),
+        distance = countDown - now;
 
-       }, 500);
-  
+        if (distance < 0) {           
+            {% case block.settings.cart_with_timer_what_to_do %}
+            
+            {% when 'Show_Message' %}
+                    $('.showing_when_timer_works').hide();
+                $('.show_when_timer_expired').show();
+                
+            {% when 'Hide_Timer' %}
+                    $('.timer_block').hide();
+
+            {% when 'Hide_Entire_Element' %}
+            $('.countdown_timer_header').hide();
+            {% endcase %}    
+
+            return;         
+        }
+        
+        document.querySelector('.js-timer-minutes').innerText = Math.floor((distance % (hour)) / (minute)),
+        document.querySelector('.js-timer-seconds').innerText = ("0" + Math.floor((distance % (minute)) / second)).slice(-2) + document.querySelector('.txt_after_timer').innerText;
+
+    }, 500);
 
 </script>
 
 
-{% if block.settings.cart_with_timer_enable_clicktocopy == true %}
 
-  <style>
-    .countdown_timer_header_wrapper {cursor: pointer;}
-  </style>
-
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
-  <script>
-    $(document).ready(function(){
-      $('[data-toggle="tooltip"]').tooltip();   
-    });
-  </script>
-
-{% endif %}
 

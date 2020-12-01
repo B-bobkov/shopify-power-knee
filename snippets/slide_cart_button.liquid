@@ -1,4 +1,7 @@
-  
+{% if block.settings.slide_cart_btn_font contains 'Google' %}
+<link href="//fonts.googleapis.com/css?family={{ block.settings.slide_cart_btn_font | replace: 'Google_', '' | replace: "'", "" }}:light,normal,bold" rel="stylesheet" type="text/css" />
+{% endif %}
+
 <!-- /*   GENERAL STYLE */ -->
 
 <style>
@@ -8,8 +11,8 @@
     
     padding-top: {{ block.settings.slide_cart_btn_lap_top_pad }}px!important;
     padding-bottom: {{ block.settings.slide_cart_btn_lap_bt_pad }}px!important;
-    padding-left: {{ block.settings.slide_cart_btn_lap_side_pad }}px!important;
-    padding-right: {{ block.settings.slide_cart_btn_lap_side_pad }}px!important;
+    padding-left: {{ block.settings.slide_cart_btn_lap_sd_pad }}px!important;
+    padding-right: {{ block.settings.slide_cart_btn_lap_sd_pad }}px!important;
     
     {% if block.settings.slide_cart_btn_display_on == 'Mobile_Only' %}
       display: none;
@@ -50,26 +53,7 @@
     text-align: {{ block.settings.slide_cart_btn_msg_align }};
     
   }
-  
-  {% if block.settings.slide_cart_btn_stick_bt_lap == true %}
-    @media only screen and (min-width: 600px) {
-      .slide_cart_btn_bar {
-        position: fixed;
-        bottom: 0px;
-        width: 500px;
-      }
-    }
-  {% endif %}
-  
-  {% if block.settings.slide_cart_btn_stick_bt_mob == true %}
-    @media only screen and (max-width: 600px) {
-      .slide_cart_btn_bar {
-        position: fixed;
-        bottom: 0px;
-        width: 356.44px;
-      }
-    }
-  {% endif %}  
+
 
 </style>
 
@@ -80,8 +64,8 @@
     .slide_cart_btn_bar{
       padding-top: {{ block.settings.slide_cart_btn_mob_top_pad }}px!important;
       padding-bottom: {{ block.settings.slide_cart_btn_mob_bt_pad }}px!important;
-      padding-left: {{ block.settings.slide_cart_btn_mob_side_pad }}px!important;
-      padding-right: {{ block.settings.slide_cart_btn_mob_side_pad }}px!important;
+      padding-left: {{ block.settings.slide_cart_btn_mob_sd_pad }}px!important;
+      padding-right: {{ block.settings.slide_cart_btn_mob_sd_pad }}px!important;
       
       {% if block.settings.slide_cart_btn_display_on == 'Desktop_Only' %}
       	display: none;
@@ -105,21 +89,110 @@
 </style>
 <!-- End of mobile style -->
 
+
+
 <!-- /*   SPECIFIC STYLE */ -->
+<style>
+  .ajax_cart_checkout_btn > p {
+    margin: 0; 
+    display: block; 
+    vertical-align: middle;
+    color: {{ block.settings.slide_cart_button_txt_fcol }};
+    font-family: {{ block.settings.slide_cart_btn_font | replace: 'Google_', '' | replace: '+', ' ' }};
+    font-weight: {{ block.settings.slide_cart_btn_font_weight }};
+    font-size: {{ block.settings.slide_cart_btn_font_laptop_size }}px;
+    line-height: {{ block.settings.slide_cart_btn_font_laptop_size | plus: block.settings.slide_cart_btn_line_height }}px;
+    
+
+  }
+
+  @media only screen and (max-width: 600px) {
+    .ajax_cart_checkout_btn > p  {
+      font-size: {{ block.settings.slide_cart_btn_font_mob_size }}px;
+      line-height: {{ block.settings.slide_cart_btn_font_mob_size | plus: block.settings.slide_cart_btn_line_height }}px;
+    }
+  }
+</style>
 
 <style>
-  .slide_cart_btn_bar > p {margin: 0; display: initial; vertical-align: middle;}
+
+  .ajax_cart_checkout_btn {
+    display: block;
+    border: none;
+    outline: none;
+    background-color: {{ block.settings.slide_cart_button_col }};
+    color: {{ block.settings.slide_cart_button_txt_fcol }};
+    padding-top: {{ block.settings.slide_cart_button_top_pad }}px;
+    padding-bottom: {{ block.settings.slide_cart_button_bt_pad }}px;
+    padding-left: {{ block.settings.slide_cart_button_side_pad }}px;
+    padding-right: {{ block.settings.slide_cart_button_side_pad }}px;
+    border-radius: {{ block.settings.slide_cart_button_radius }}px;
+    box-shadow: 0 {{ block.settings.slide_cart_button_shadow_cov }}px 3px {{ block.settings.slide_cart_button_shadow_col }};
+  }
+
+  .ajax_cart_checkout_btn:hover {
+    background-color: {{ block.settings.slide_cart_button_col_hover }};
+    color: {{ block.settings.slide_cart_button_txt_fcol_hover }};
+  }
+
+  .ajax_cart_checkout_btn:hover>p{
+    color: {{ block.settings.slide_cart_button_txt_fcol_hover }};
+  }
+
+
+  .ajax_cart_checkout_btn>p {
+    vertical-align: middle;
+  }
+
+  .ajax_cart_checkout_btn>i {
+    color: {{ block.settings.slide_cart_btn_ico_col }};
+    font-size: {{ block.settings.slide_cart_btn_ico_lap_size }}px;
+    vertical-align: middle;
+    {% if block.settings.slide_cart_btn_ico_pos == 'Before_Button' %}
+      padding-right: {{ block.settings.slide_cart_btn_ico_pd }}px;
+    {% endif %}
+    {% if block.settings.slide_cart_btn_ico_pos == 'After_Button' %}
+      padding-left: {{ block.settings.slide_cart_btn_ico_pd }}px;
+    {% endif %}
+  }
+
+  @media only screen and (max-width: 600px) {
+    .ajax_cart_checkout_btn>i {
+      font-size: {{ block.settings.slide_cart_btn_ico_mob_size }}px;
+    }
+  }
   
- </style>
+</style>
 
 
 <div class="slide_cart_btn_bar">
 
-  
-	This is template for Checkout button
+	<form action="{{ routes.cart_url }}" method="post" novalidate class="cart" style="display: flex;" name="_checkout_form">
+      <button type="submit" name="checkout" class="ajax_cart_checkout_btn" style="width: 100%;" onclick="if ($('#coupon_code').val() != '' && $('#coupon_code').val() != undefined) document._checkout_form.action = document._checkout_form.action + '?discount=' + $('#coupon_code').val();">
+
+      {% if block.settings.slide_cart_btn_ico_pos == 'Before_Button' and block.settings.slide_cart_btn_ico_enable == true %}
+      {{ block.settings.slide_cart_btn_ico_code }}
+      {% endif %}
+
+      {{ block.settings.slide_cart_button_input }}
+
+      {% if block.settings.slide_cart_btn_ico_pos == 'After_Button' and block.settings.slide_cart_btn_ico_enable == true %}
+      {{ block.settings.slide_cart_btn_ico_code }}
+      {% endif %}
+
+      </button>
+  </form>
   	
-  
-  
+  {% if block.settings.slide_cart_btn_stick_bt_lap == true %}  
+    <input class="sticky_lap" type="text" value="stick_lap_yes">
+  {% else %}
+    <input class="sticky_lap" type="text" value="stick_lap_no">
+  {% endif %}
+
+  {% if block.settings.slide_cart_btn_stick_bt_mob == true %}  
+    <input class="sticky_mob" type="text" value="stick_mob_yes">
+  {% else %}
+    <input class="sticky_mob" type="text" value="stick_mob_no">
+  {% endif %}  	
+
 </div>
-
-

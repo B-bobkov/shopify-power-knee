@@ -3,6 +3,9 @@
     position: fixed!important;
     top: 0;
     width: 100%;
+    backface-visibility: hidden;
+    -webkit-transform: translate3d(0,0,0);
+
   }
 </style>
 
@@ -124,17 +127,17 @@
 
 <style>
   
-  #annnbar {display: none;}
+  #annnbar {display: none; -webkit-transform: translate3d(0,0,0);}
   
   {% if settings.ancbar_enable_lap == true %}
     @media only screen and (min-width: 600px) {
-      #annnbar {display: block;}
+      #annnbar {display: block;-webkit-transform: translate3d(0,0,0);}
     }
   {% endif %}
 
   {% if settings.ancbar_enable_mob == true %}
     @media only screen and (max-width: 600px) {
-      #annnbar {display: block;}
+      #annnbar {display: block;-webkit-transform: translate3d(0,0,0);}
     }
   {% endif %}
   

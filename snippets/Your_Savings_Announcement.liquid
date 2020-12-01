@@ -1,4 +1,6 @@
-
+{% if block.settings.saving_anbar_msg_font contains 'Google' %}
+<link href="//fonts.googleapis.com/css?family={{ block.settings.saving_anbar_msg_font | replace: 'Google_', '' | replace: "'", "" }}:light,normal,bold" rel="stylesheet" type="text/css" />
+{% endif %}
   
 <!-- /*   GENERAL STYLE */ -->
 
@@ -51,7 +53,7 @@
     text-align: {{ block.settings.saving_anbar_msg_align }};
     
   }
-  
+{% comment %}   
   {% if block.settings.saving_anbar_stick_bt_lap == true %}
     @media only screen and (min-width: 600px) {
       .savings_bar {
@@ -70,7 +72,7 @@
         width: 356.44px;
       }
     }
-  {% endif %}  
+  {% endif %}   {% endcomment %}
 
 </style>
 
@@ -125,7 +127,7 @@
   .savings_bar > p, .savings_bar > p > a, .savings_bar > p > em, .savings_bar > p > strong {
     	font-weight: revert;
   	    color: {{ block.settings.saving_anbar_msg_fcol }}!important;
-        font-family: {{ block.settings.saving_anbar_msg_font }}!important;
+        font-family: {{ block.settings.saving_anbar_msg_font | replace: 'Google_', '' | replace: '+', ' ' }}!important;
 /*         font-weight:  block.settings.saving_anbar_msg_font_weight !important; */
     	
         font-size: {{ block.settings.saving_anbar_msg_font_laptop_size }}px;
@@ -162,7 +164,18 @@
 	{{ block.settings.saving_anbar_icon_code }}
   {% endif %}
   
-  
+  {% if block.settings.saving_anbar_stick_bt_lap == true %}  
+    <input class="sticky_lap" type="text" value="stick_lap_yes">
+  {% else %}
+    <input class="sticky_lap" type="text" value="stick_lap_no">
+  {% endif %}
+
+  {% if block.settings.saving_anbar_stick_bt_mob == true %}  
+    <input class="sticky_mob" type="text" value="stick_mob_yes">
+  {% else %}
+    <input class="sticky_mob" type="text" value="stick_mob_no">
+  {% endif %}  	
+
 </div>
 
 

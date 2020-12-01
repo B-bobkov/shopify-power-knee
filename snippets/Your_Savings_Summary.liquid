@@ -1,4 +1,10 @@
+{% if block.settings.your_savings_txt_font contains 'Google' %}
+<link href="//fonts.googleapis.com/css?family={{ block.settings.your_savings_txt_font | replace: 'Google_', '' | replace: "'", "" }}:light,normal,bold" rel="stylesheet" type="text/css" />
+{% endif %}
 
+{% if block.settings.your_savings_price_font contains 'Google' %}
+<link href="//fonts.googleapis.com/css?family={{ block.settings.your_savings_price_font | replace: 'Google_', '' | replace: "'", "" }}:light,normal,bold" rel="stylesheet" type="text/css" />
+{% endif %}
 
   
 <!-- /*   GENERAL STYLE */ -->
@@ -52,26 +58,7 @@
     text-align: {{ block.settings.your_savings_summ_msg_align }};
     
   }
-  
-  {% if block.settings.your_savings_summ_stick_bt_lap == true %}
-    @media only screen and (min-width: 600px) {
-      .your_savings_summ_bar {
-        position: fixed;
-        bottom: 0px;
-        width: 500px;
-      }
-    }
-  {% endif %}
-  
-  {% if block.settings.your_savings_summ_stick_bt_mob == true %}
-    @media only screen and (max-width: 600px) {
-      .your_savings_summ_bar {
-        position: fixed;
-        bottom: 0px;
-        width: 356.44px;
-      }
-    }
-  {% endif %}  
+
 
 </style>
 
@@ -112,15 +99,164 @@
 <style>
   .your_savings_summ_bar > p {margin: 0; display: initial; vertical-align: middle;}
   
+  #discount_mark {
+    display: inline-flex;
+    padding: 0px 7px;
+    vertical-align: middle;
+    -webkit-box-align: center;
+    align-items: center;
+    background: rgba(0,0,0,0.05);
+    border-radius: 3px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-left: 8px;
+  }
+
+  #discount_icon {
+    margin-right: 8px;
+    color: #585858;
+  }
+
+    #discount_icon_close {
+        outline: none;
+        margin-left: 6px;
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        -webkit-animation: none;
+        animation: none;
+        -webkit-animation-delay: 0;
+        animation-delay: 0;
+        -webkit-animation-direction: normal;
+        animation-direction: normal;
+        -webkit-animation-duration: 0;
+        animation-duration: 0;
+        -webkit-animation-fill-mode: none;
+        animation-fill-mode: none;
+        -webkit-animation-iteration-count: 1;
+        animation-iteration-count: 1;
+        -webkit-animation-name: none;
+        animation-name: none;
+        -webkit-animation-play-state: running;
+        animation-play-state: running;
+        -webkit-animation-timing-function: ease;
+        animation-timing-function: ease;
+        -webkit-backface-visibility: visible;
+        backface-visibility: visible;
+        background: 0;
+        background-attachment: scroll;
+        background-clip: border-box;
+        background-color: transparent;
+        background-image: none;
+        background-origin: padding-box;
+        background-position: 0 0;
+        background-position-x: 0;
+        background-position-y: 0;
+        background-repeat: repeat;
+        background-size: auto auto;
+        border: 0;
+        border-style: none;
+        border-width: medium;
+        border-color: inherit;
+        border-bottom: 0;
+        border-bottom-color: inherit;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+        border-bottom-style: none;
+        border-bottom-width: medium;
+        border-collapse: separate;
+        -webkit-border-image: none;
+        -o-border-image: none;
+        border-image: none;
+        border-left: 0;
+        border-left-color: inherit;
+    }
+
+    .your_savings_txt {
+        display: table;
+        margin: auto;
+    }
+    .your_savings_txt>p {
+        margin: 0;
+        vertical-align: middle;
+        color: {{ block.settings.your_savings_txt_fcol }};
+        font-family: {{ block.settings.your_savings_txt_font | replace: 'Google_', '' | replace: '+', ' ' }};
+        font-weight: {{ block.settings.your_savings_txt_font_weight }};
+        font-size: {{ block.settings.your_savings_txt_font_laptop_size }}px;
+    }
+
+    @media only screen and (max-width: 600px) {
+        .your_savings_txt>p {
+            font-size: {{ block.settings.your_savings_txt_font_mob_size }}px;
+        }
+    }
+
+    .right_part_2>p {
+        margin: 0;
+        display: inline;
+        color: {{ block.settings.your_savings_price_fcol }};
+        font-family: {{ block.settings.your_savings_price_font | replace: 'Google_', '' | replace: '+', ' ' }};
+        font-weight: {{ block.settings.your_savings_price_font_weight }};
+        font-size: {{ block.settings.your_savings_price_font_laptop_size }}px;
+    }
+
+    @media only screen and (max-width: 600px) {
+        .right_part_2>p {
+            font-size: {{ block.settings.your_savings_price_font_mob_size }}px;
+            margin-right {{ block.settings.your_savings_summ_lap_side_pad }}px;
+        }
+    }
+
  </style>
 
 
-<div class="your_savings_summ_bar">
+<div class="your_savings_summ_bar" style="display: flow-root;">
 
+  <div class="left_part" style="display: flex; float: left;">
+	<div class="your_savings_txt">
+       {{ block.settings.your_savings_txt }}
+    </div>
+
+  	<div class="discount_icon_wrapper" style="visibility: hidden;">
+        <span id="discount_mark">
+            <svg id="discount_icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18" width="14px" height="14px">
+                <path d="M17.78 3.09C17.45 2.443 16.778 2 16 2h-5.165c-.535 0-1.046.214-1.422.593l-6.82 6.89c0 .002 0 .003-.002.003-.245.253-.413.554-.5.874L.738 8.055c-.56-.953-.24-2.178.712-2.737L9.823.425C10.284.155 10.834.08 11.35.22l4.99 1.337c.755.203 1.293.814 1.44 1.533z" fill-opacity=".55" fill="currentColor"></path>
+                <path fill="currentColor" d="M10.835 2H16c1.105 0 2 .895 2 2v5.172c0 .53-.21 1.04-.586 1.414l-6.818 6.818c-.777.778-2.036.782-2.82.01l-5.166-5.1c-.786-.775-.794-2.04-.02-2.828.002 0 .003 0 .003-.002l6.82-6.89C9.79 2.214 10.3 2 10.835 2zM13.5 8c.828 0 1.5-.672 1.5-1.5S14.328 5 13.5 5 12 5.672 12 6.5 12.672 8 13.5 8z"></path>
+            </svg>
+            <span id="applied_discount_name"></span>
+            <button id="discount_icon_close">
+                <svg width="10" style="width: 9px;" viewBox="0 0 10 10"><path d="M9.677 8.118a1.102 1.102 0 11-1.559 1.56L5 6.558 1.882 9.677a1.102 1.102 0 11-1.56-1.559L3.442 5 .323 1.882A1.102 1.102 0 111.882.322L5 3.442 8.118.323a1.102 1.102 0 111.56 1.559L6.558 5l3.118 3.118z" fill="#A1A1A1" fill-rule="nonzero"></path></svg>
+            </button>
+        </span>      
+    </div>
+  </div>
+  <div class="right_part_2" style=" float: right; display: table;">
+    <p></p>
+  </div>
   
-	This is template for Your_Savings_Summary
-  	
-  
+  <div class="right_part" style=" float: right; display: table; margin: 0; font-size: 10px; visibility: hidden;">
+    <p></p>
+  </div>
+    
+
+
+
+
+
+
+
+    {% if block.settings.your_savings_summ_stick_bt_lap == true %}  
+    <input class="sticky_lap" type="text" value="stick_lap_yes">
+  {% else %}
+    <input class="sticky_lap" type="text" value="stick_lap_no">
+  {% endif %}
+
+  {% if block.settings.your_savings_summ_stick_bt_mob == true %}  
+    <input class="sticky_mob" type="text" value="stick_mob_yes">
+  {% else %}
+    <input class="sticky_mob" type="text" value="stick_mob_no">
+  {% endif %}  	
   
 </div>
 

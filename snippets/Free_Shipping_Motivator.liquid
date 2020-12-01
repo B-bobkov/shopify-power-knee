@@ -1,4 +1,11 @@
-  
+{% if block.settings.free_shipping_moti_font contains 'Google' %}
+<link href="//fonts.googleapis.com/css?family={{ block.settings.free_shipping_moti_font | replace: 'Google_', '' | replace: "'", "" }}:light,normal,bold" rel="stylesheet" type="text/css" />
+{% endif %}
+
+{% if block.settings.free_shipping_moti_congrat_font contains 'Google' %}
+<link href="//fonts.googleapis.com/css?family={{ block.settings.free_shipping_moti_congrat_font | replace: 'Google_', '' | replace: "'", "" }}:light,normal,bold" rel="stylesheet" type="text/css" />
+{% endif %}
+
 <!-- /*   GENERAL STYLE */ -->
 
 <style>
@@ -50,7 +57,7 @@
     text-align: {{ block.settings.free_shipping_motivator_msg_align }};
     
   }
-  
+{% comment %}   
   {% if block.settings.free_shipping_motivator_stick_bt_lap == true %}
     @media only screen and (min-width: 600px) {
       .free_shipping_motivator_bar {
@@ -69,7 +76,7 @@
         width: 356.44px;
       }
     }
-  {% endif %}  
+  {% endif %}   {% endcomment %}
 
 </style>
 
@@ -108,16 +115,115 @@
 <!-- /*   SPECIFIC STYLE */ -->
 
 <style>
-  .free_shipping_motivator_bar > p {margin: 0; display: initial; vertical-align: middle;}
-  
- </style>
+    .free_shipping_motivator_bar > p {margin: 0; display: initial; vertical-align: middle;}
+    
+    .free_shipping_moti_headline {
+        text-align: {{ block.settings.free_shipping_motivator_price_align }};
+    }
+
+    .free_shipping_moti_headline>p{
+        margin: 0;
+        display: contents;
+        color: {{ block.settings.free_shipping_moti_fcol }}!important;
+        font-family: {{ block.settings.free_shipping_moti_font | replace: 'Google_', '' | replace: '+', ' ' }}!important;
+        font-size: {{ block.settings.free_shipping_moti_font_laptop_size }}px;
+        font-weight: {{ block.settings.free_shipping_moti_font_weight }};
+        line-height: {{ block.settings.free_shipping_moti_font_laptop_size | plus: block.settings.free_shipping_moti_line_height }}px;  
+    }
+
+    @media only screen and (max-width: 600px) {
+        .free_shipping_moti_headline>p{
+            font-size: {{ block.settings.free_shipping_moti_font_mob_size }}px;
+            line-height: {{ block.settings.free_shipping_moti_font_mob_size | plus: block.settings.free_shipping_moti_line_height }}px;  
+            
+        }
+    }
+
+    .free_shipping_moti_prog_wrapper{
+        border-radius: 4px;
+        background-color: {{ block.settings.free_shipping_moti_prog_bar_bg_col }};
+        padding: {{ block.settings.free_shipping_moti_prog_bar_lap_pd }}px 0;
+    }
+    
+    @media only screen and (max-width: 600px) {
+        .free_shipping_moti_prog_wrapper{
+            padding: {{ block.settings.free_shipping_moti_prog_bar_mob_pd }}px 0;
+        }
+    }
+
+    .free_shipping_moti_progressbar {
+        border-radius: 4px;
+        background: linear-gradient(89.33deg, {{ block.settings.free_shipping_moti_prog_bar_pr_col }} 0%, {{ block.settings.free_shipping_moti_prog_bar_gradi_col }} 100%);
+        transition: all 0.35s ease 0s;
+        height: 13px;
+        width: 0%;
+        display: block;
+        overflow: hidden;
+    }
+
+    .free_shipping_moti_congra_txt{
+        text-align: {{ block.settings.free_shipping_moti_congra_align }};
+    }
+
+    .free_shipping_moti_congra_txt>p {
+        margin: 0;
+        color: {{ block.settings.free_shipping_moti_congrat_fcol }}!important;
+        font-family: {{ block.settings.free_shipping_moti_congrat_font | replace: 'Google_', '' | replace: '+', ' ' }}!important;
+        font-weight: {{ block.settings.free_shipping_moti_congrat_font_weight }};
+        font-size: {{ block.settings.free_shipping_moti_congrat_font_laptop_size }}px;
+        line-height: {{ block.settings.free_shipping_moti_congrat_font_laptop_size | plus: block.settings.free_shipping_moti_congrat_line_height }}px;  
+    }
+
+    @media only screen and (max-width: 600px) {
+        .free_shipping_moti_congra_txt>p {
+            font-size: {{ block.settings.free_shipping_moti_congrat_font_mob_size }}px;
+            line-height: {{ block.settings.free_shipping_moti_congrat_font_mob_size | plus: block.settings.free_shipping_moti_congrat_line_height }}px;  
+        }
+    }
+
+</style>
+
 
 
 <div class="free_shipping_motivator_bar">
 
-  
-	This is template for Free_Shipping_Motivator
-  	
+    <input id="val_to_unlock_freeshipping" type="text" style="position:fixed; top:-100px;" value={{ block.settings.free_shipping_motivator_order_val }} >
+    <input id="free_shipping_motivator_amount_price_style" type="text" style="position:fixed; top:-100px;" value={{ block.settings.free_shipping_motivator_price_style }} >
+    <input id="free_shipping_moti_congra_show_style" type="text" style="position:fixed; top:-100px;" value={{ block.settings.free_shipping_moti_congra_show }} >
+    <input id="change_free_shipping_motivator_cong_bg" type="text" style="position:fixed; top:-100px;" value={{ block.settings.free_shipping_motivator_cong_bg }} >
+    <input id="free_shipping_motivator_cong_bg_col" type="text" style="position:fixed; top:-100px;" value={{ block.settings.free_shipping_motivator_cong_bg_col }} >
+    <input id="free_shipping_motivator_cong_bg_col_origin" type="text" style="position:fixed; top:-100px;" value={{ block.settings.free_shipping_motivator_bg_col }} >
+
+    <div class="free_shipping_moti_headline">
+        {% assign free_shipping_motivator_headline = block.settings.free_shipping_motivator_msg | split: '{{AMOUNT}}' %}
+        {{ free_shipping_motivator_headline[0] }}</p>
+        <p class = "money_away_from_freeshipping"></p>
+        <p>{{ free_shipping_motivator_headline[1] }}
+
+    </div>
+
+    <div class="free_shipping_moti_congra_txt" style="display: none;">
+        {{ block.settings.free_shipping_moti_congra_txt }}
+    </div>
+
+    <div class="free_shipping_moti_prog_wrapper" >
+        <span class="free_shipping_moti_progressbar"> </span>
+    </div>
+
+
+
+
+  {% if block.settings.free_shipping_motivator_stick_bt_lap == true %}  
+    <input class="sticky_lap" type="text" value="stick_lap_yes">
+  {% else %}
+    <input class="sticky_lap" type="text" value="stick_lap_no">
+  {% endif %}
+
+  {% if block.settings.free_shipping_motivator_stick_bt_mob == true %}  
+    <input class="sticky_mob" type="text" value="stick_mob_yes">
+  {% else %}
+    <input class="sticky_mob" type="text" value="stick_mob_no">
+  {% endif %}  	
   
 </div>
 

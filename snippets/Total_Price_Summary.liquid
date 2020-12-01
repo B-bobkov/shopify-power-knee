@@ -1,3 +1,10 @@
+{% if block.settings.total_price_font contains 'Google' %}
+<link href="//fonts.googleapis.com/css?family={{ block.settings.total_price_font | replace: 'Google_', '' | replace: "'", "" }}:light,normal,bold" rel="stylesheet" type="text/css" />
+{% endif %}
+
+{% if block.settings.total_txt_font contains 'Google' %}
+<link href="//fonts.googleapis.com/css?family={{ block.settings.total_txt_font | replace: 'Google_', '' | replace: "'", "" }}:light,normal,bold" rel="stylesheet" type="text/css" />
+{% endif %}
 
   
 <!-- /*   GENERAL STYLE */ -->
@@ -52,7 +59,7 @@
     
   }
   
-  {% if block.settings.total__price_summ_stick_bt_lap == true %}
+  {% comment %} {% if block.settings.total__price_summ_stick_bt_lap == true %}
     @media only screen and (min-width: 600px) {
       .total__price_summ_bar {
         position: fixed;
@@ -70,7 +77,7 @@
         width: 356.44px;
       }
     }
-  {% endif %}  
+  {% endif %}   {% endcomment %}
 
 </style>
 
@@ -111,16 +118,58 @@
 <style>
   .total__price_summ_bar > p {margin: 0; display: initial; vertical-align: middle;}
   
- </style>
+  #ajax_cart_total_price {
+    position: absolute;
+    right: {{ block.settings.total__price_summ_lap_side_pad | plus: block.settings.total__price_summ_border_thickness }}px;
+
+    color: {{ block.settings.total_price_fcol }};
+    font-family: {{ block.settings.total_price_font | replace: 'Google_', '' | replace: '+', ' ' }};
+    font-weight: {{ block.settings.total_price_font_weight }};
+    font-size: {{ block.settings.total_price_font_laptop_size }}px;
+  }
+
+  @media only screen and (max-width: 600px) {
+    #ajax_cart_total_price {
+        position: absolute;
+        right: {{ block.settings.total__price_summ_mob_side_pad | plus: block.settings.total__price_summ_border_thickness }}px;
+        font-size: {{ block.settings.total_price_font_mob_size }}px;
+      }
+  }
+
+  .total__price_summ_bar>p:first-child {
+    color: {{ block.settings.total_txt_fcol }};
+    font-family: {{ block.settings.total_txt_font | replace: 'Google_', '' | replace: '+', ' ' }};
+    font-weight: {{ block.settings.total_txt_font_weight }};
+    font-size: {{ block.settings.total_txt_font_laptop_size }}px;
+  }
+
+  @media only screen and (max-width: 600px) {
+    .total__price_summ_bar>p:first-child {
+      font-size: {{ block.settings.total_txt_font_mob_size }}px;
+    }    
+  }
+
+</style>
 
 
-<div class="total__price_summ_bar">
+<div class="total__price_summ_bar" style="display: flex;">
 
+  {{ block.settings.total_txt }}
   
-	This is template for Total_Price_Summary
+  <p id="ajax_cart_total_price"></p>
   	
-  
-  
+  {% if block.settings.total__price_summ_stick_bt_lap == true %}  
+    <input class="sticky_lap" type="text" value="stick_lap_yes">
+  {% else %}
+    <input class="sticky_lap" type="text" value="stick_lap_no">
+  {% endif %}
+
+  {% if block.settings.total__price_summ_stick_bt_mob == true %}  
+    <input class="sticky_mob" type="text" value="stick_mob_yes">
+  {% else %}
+    <input class="sticky_mob" type="text" value="stick_mob_no">
+  {% endif %}
+
 </div>
 
 

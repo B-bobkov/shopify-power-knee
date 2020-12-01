@@ -1,5 +1,6 @@
-{% if block.settings.logo_font contains 'Google' %}
-      <link href="//fonts.googleapis.com/css?family=.|{% if block.settings.cart_header_title_font contains 'Google' %}{{ block.settings.cart_header_title_font | replace: 'Google_', '' | replace: "'", "" }}:light,normal,bold{% endif %}" rel="stylesheet" type="text/css" />
+{% if block.settings.cart_header_title_font contains 'Google' %}
+<link href="//fonts.googleapis.com/css?family={{ block.settings.cart_header_title_font | replace: 'Google_', '' | replace: "'", "" }}:light,normal,bold" rel="stylesheet" type="text/css" />
+{% comment %} <link href="//fonts.googleapis.com/css?family=Permanent Marker" rel="stylesheet" type="text/css"> {% endcomment %}
 {% endif %}
 
 <style>
@@ -39,21 +40,18 @@
       	background-color: {{ block.settings.cart_header_icon_bg_col_on_hover }}!important;
     }  
   
+    .cart_header_close_btn:hover > svg > path {
+        stroke: {{ block.settings.cart_header_icon_col_on_hover }};
+        fill: {{ block.settings.cart_header_icon_col_on_hover }};
+    }
+
     .cart_header_close_btn > svg {
         width: {{ block.settings.cart_header_icon_lap_size }}px;        
     }  
-  
     .cart_header_close_btn > svg > path {
         stroke: {{ block.settings.cart_header_icon_col }};
         fill: {{ block.settings.cart_header_icon_col }};
     }
-  
-    .cart_header_close_btn > svg > path:hover {
-        stroke: {{ block.settings.cart_header_icon_col_on_hover }};
-        fill: {{ block.settings.cart_header_icon_col_on_hover }};
-    }
-  
-
   
     .cart_header{
       	position: relative;
@@ -85,17 +83,16 @@
     }
   
     .cart_header_title {
-		display: inline-block;
+		    display: inline-block;
     }
 
     .cart_header > .cart_header_title > p {
         margin: 0;
         color: {{ block.settings.cart_header_title_fcol }}!important;
-        font-family: {{ block.settings.cart_header_title_font | replace: 'Google_', '' | replace: '+', ' ' }}!important;
+        font-family: {{ block.settings.cart_header_title_font | replace: 'Google_', '' | replace: '+', ' ' }};
         font-weight: {{ block.settings.cart_header_title_font_weight }}!important;
         font-size: {{ block.settings.cart_header_title_font_laptop_size }}px!important;
       	letter-spacing: {{ block.settings.cart_header_title_font_letter_spacing }}px;
-      	word-spacing: {{ block.settings.cart_header_title_font_laptop_size | times: -0.25 | plus: block.settings.cart_header_title_font_word_spacing }}px; 
         
     }
 
@@ -131,26 +128,35 @@
 </style>
 
 <div class="cart_header" id={{ block.id }} >
-    <div class="cart_header_title">{{ block.settings.cart_header_title }}</div>
+
+    {% assign cartHeaderTitle = block.settings.cart_header_title | split: '&lt;#' %}
+    {% assign colorCode_Text = cartHeaderTitle[1] | split: '&lt;/#&gt;' | first %}
+    {% assign tailText = cartHeaderTitle[1] | split: '&lt;/#&gt;' | last %}
+    {% assign colorCode = colorCode_Text | split: '&gt;' | first %}
+    {% assign colorText = colorCode_Text | split: '&gt;' | last %}
+    {% assign finalTitle = cartHeaderTitle[0] | append: '<span style="color: #' | append: colorCode | append: ';">' | append: colorText | append: '</span>' | append: tailText | replace: '&lt;u&gt;', '<u>' | replace: '&lt;/u&gt;', "</u>"  %} 
+    
+    
+    
+    
+    <div class="cart_header_title">{{ finalTitle }}</div>
+    {% comment %} <div class="cart_header_title">{{ cartHeaderTitle[0] }}</div> {% endcomment %}
   	
     {%- if block.settings.cart_header_icon_custom_img_icon != blank -%}
-       <button class="cart_header_close_btn" onclick="hideCart()">
+       <button class="cart_header_close_btn js-drawer-close" >
           <img class="custom_icon" src="{{ block.settings.cart_header_icon_custom_img_icon | img_url }}" alt="x">
        </button>
     {%- else -%}
-      <button class="cart_header_close_btn" onclick="hideCart()">
+      <button class="cart_header_close_btn js-drawer-close" >
         <svg width="10" viewBox="0 0 10 10">
           <path d="M9.677 8.118a1.102 1.102 0 11-1.559 1.56L5 6.558 1.882 9.677a1.102 1.102 0 11-1.56-1.559L3.442 5 .323 1.882A1.102 1.102 0 111.882.322L5 3.442 8.118.323a1.102 1.102 0 111.56 1.559L6.558 5l3.118 3.118z" fill="#A1A1A1" fill-rule="nonzero">
           </path>
         </svg>
       </button>
     {%- endif -%}      
-  	
+
+    <input class="sticky_lap" type="text" value="stick_lap_no">
+
+    <input class="sticky_mob" type="text" value="stick_mob_no">
+
 </div>
-
-<!-- <script>
-  function hideCart() {
-    document.getElementById("CartDrawer").style.right = "0px";
-  }
-</script> -->
-

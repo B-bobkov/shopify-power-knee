@@ -1,4 +1,12 @@
-
+{% if block.settings.discount_code_invalid_txt_font contains 'Google' %}
+<link href="//fonts.googleapis.com/css?family={{ block.settings.discount_code_invalid_txt_font | replace: 'Google_', '' | replace: "'", "" }}:light,normal,bold" rel="stylesheet" type="text/css" />
+{% endif %}
+{% if block.settings.discount_code_btn_font contains 'Google' %}
+<link href="//fonts.googleapis.com/css?family={{ block.settings.discount_code_btn_font | replace: 'Google_', '' | replace: "'", "" }}:light,normal,bold" rel="stylesheet" type="text/css" />
+{% endif %}
+{% if block.settings.discount_code_font contains 'Google' %}
+<link href="//fonts.googleapis.com/css?family={{ block.settings.discount_code_font | replace: 'Google_', '' | replace: "'", "" }}:light,normal,bold" rel="stylesheet" type="text/css" />
+{% endif %}
   
 <!-- /*   GENERAL STYLE */ -->
 
@@ -51,26 +59,7 @@
     text-align: {{ block.settings.discount_code_msg_align }};
     
   }
-  
-  {% if block.settings.discount_code_stick_bt_lap == true %}
-    @media only screen and (min-width: 600px) {
-      .discount_code_bar {
-        position: fixed;
-        bottom: 0px;
-        width: 500px;
-      }
-    }
-  {% endif %}
-  
-  {% if block.settings.discount_code_stick_bt_mob == true %}
-    @media only screen and (max-width: 600px) {
-      .discount_code_bar {
-        position: fixed;
-        bottom: 0px;
-        width: 356.44px;
-      }
-    }
-  {% endif %}  
+
 
 </style>
 
@@ -111,16 +100,114 @@
 <style>
   .discount_code_bar > p {margin: 0; display: initial; vertical-align: middle;}
   
+  #coupon_code {
+    width: 69%;
+    border: {{ block.settings.discount_code_inputbox_border_weight }}px solid {{ block.settings.discount_code_input_box_border_col }};
+    background-color: {{ block.settings.discount_code_input_box_bg_col }};
+    color: {{ block.settings.discount_code_input_box_txt_col }};
+    border-radius: {{ block.settings.discount_code_inputbox_border_radius }}px;
+    font-family: {{ block.settings.discount_code_font | replace: 'Google_', '' | replace: '+', ' ' }};
+    font-weight: {{ block.settings.discount_code_font_weight }};
+    font-size: {{ block.settings.discount_code_font_laptop_size }}px;
+    {% comment %} line-height: {{ block.settings.discount_code_font_laptop_size | plus: block.settings.discount_code_line_height }}px; {% endcomment %}
+  }
+
+  #coupon_code:focus {
+    outline: none;
+  }
+
+  @media only screen and (max-width: 600px) {
+    #coupon_code {
+      font-size: {{ block.settings.discount_code_font_mob_size }}px;
+      line-height: {{ block.settings.discount_code_font_mob_size | plus: block.settings.discount_code_line_height }}px;
+
+    }
+  }
+
+  #add_coupon_code {
+    outline: none;
+    border: none;
+    width: 28%;
+    margin-left: 1%;
+    background-color: {{ block.settings.discount_code_btn_col }};
+    border-radius: {{ block.settings.discount_code_btn_radius }}px;
+    padding: 12px 0px;
+    
+    background-image: url({{ "loading.gif" | asset_url }});
+    background-size: 19%;
+    background-repeat: no-repeat;
+    background-position-y: center;
+    background-position-x: -100px;
+  }
+
+  #add_coupon_code:hover {
+    background-color: {{ block.settings.discount_code_btn_col_on_hover }};
+  }
+  #add_coupon_code>p {
+    margin: 0;    
+    color: {{ block.settings.discount_code_txt_col }};
+    font-family: {{ block.settings.discount_code_btn_font | replace: 'Google_', '' | replace: '+', ' ' }};
+    font-weight: {{ block.settings.discount_code_btn_font_weight }};
+    font-size: {{ block.settings.discount_code_btn_font_laptop_size }}px;
+    {% comment %} line-height: {{ block.settings.discount_code_btn_font_laptop_size | plus: block.settings.discount_code_btn_line_height }}px; {% endcomment %}
+  }
+  #add_coupon_code>p:hover {
+    color: {{ block.settings.discount_code_txt_col_on_hover }};
+  }
+
+  @media only screen and (max-width: 600px) {
+    #add_coupon_code>p {
+      font-size: {{ block.settings.discount_code_btn_font_mob_size }}px;
+      {% comment %} line-height: {{ block.settings.discount_code_btn_font_mob_size | plus: block.settings.discount_code_btn_line_height }}px; {% endcomment %}
+    }
+  }
+
+  .invalid_dis_code>p {
+    margin: 0;
+    text-align: center;
+    color: {{ block.settings.discount_code_invalid_txt_fcol }};
+    font-family: {{ block.settings.discount_code_invalid_txt_font | replace: 'Google_', '' | replace: '+', ' ' }};
+    font-weight: {{ block.settings.discount_code_invalid_txt_font_weight }};
+    font-size: {{ block.settings.discount_code_invalid_txt_font_laptop_size }}px;
+    {% comment %} line-height: {{ block.settings.discount_code_invalid_txt_font_laptop_size | plus: block.settings.discount_code_invalid_txt_line_height }}px; {% endcomment %}
+  }
+
+  @media only screen and (max-width: 600px) {
+    .invalid_dis_code>p {
+      font-size: {{ block.settings.discount_code_invalid_txt_font_mob_size }}px;
+      {% comment %} line-height: {{ block.settings.discount_code_invalid_txt_font_mob_size | plus: block.settings.discount_code_invalid_txt_line_height }}px; {% endcomment %}
+    }
+    
+  }
+
  </style>
 
 
 <div class="discount_code_bar">
+  {% assign discount_code_text_var = block.settings.discount_code_input_txt | strip_html %}
+  <input type="text" id="coupon_code" placeholder="{{discount_code_text_var}}" >
+  
+  <button id="add_coupon_code">
+    {{ block.settings.discount_code_btn_txt }}    
+  </button>
+  
+  <div class="invalid_dis_code" style="display: none;">
+    {{ block.settings.discount_code_invalid_txt }}
+  </div>
 
-  
-	This is template for Discount_Code
-  	
-  
-  
+    
+
+  {% if block.settings.discount_code_stick_bt_lap == true %}  
+    <input class="sticky_lap" type="text" value="stick_lap_yes">
+  {% else %}
+    <input class="sticky_lap" type="text" value="stick_lap_no">
+  {% endif %}
+
+  {% if block.settings.discount_code_stick_bt_mob == true %}  
+    <input class="sticky_mob" type="text" value="stick_mob_yes">
+  {% else %}
+    <input class="sticky_mob" type="text" value="stick_mob_no">
+  {% endif %}  	
+
 </div>
-
 

@@ -1,12 +1,12 @@
-
-
-
-  
 <!-- /*   GENERAL STYLE */ -->
 
 <style>
   .slide_cart_img_bar {
     
+    {% if block.settings.slide_cart_img_pos == 'center' %}
+      display: flex;
+    {% endif %}
+
     background-color: {{ block.settings.slide_cart_img_bg_col }};
     
     padding-top: {{ block.settings.slide_cart_img_lap_top_pad }}px!important;
@@ -53,7 +53,7 @@
     text-align: {{ block.settings.slide_cart_img_msg_align }};
     
   }
-  
+{% comment %}   
   {% if block.settings.slide_cart_img_stick_bt_lap == true %}
     @media only screen and (min-width: 600px) {
       .slide_cart_img_bar {
@@ -72,7 +72,7 @@
         width: 356.44px;
       }
     }
-  {% endif %}  
+  {% endif %}   {% endcomment %}
 
 </style>
 
@@ -111,18 +111,46 @@
 <!-- /*   SPECIFIC STYLE */ -->
 
 <style>
-  .slide_cart_img_bar > p {margin: 0; display: initial; vertical-align: middle;}
+  .slide_cart_img {
+    width:{{ block.settings.slide_cart_img_lap_width }}px;
+    
+    {% case block.settings.slide_cart_img_pos %}
+      {% when 'left' %}
+      float: left;
+      {% when 'center' %}
+      margin: auto;
+      {% when 'right' %}        
+      float: right;
+        
+    {% endcase %}
+  
+    
+  }
+  
+  @media only screen and (max-width: 600px) {
+    .slide_cart_img {
+      width:{{ block.settings.slide_cart_img_mob_width }}px;
+    }
+  }
   
  </style>
 
 
 <div class="slide_cart_img_bar">
+  <img class="slide_cart_img" src="{{ block.settings.slide_cart_img_upload | img_url: 'large' }}" >
 
-  
-	This is template for slide_cart_img
-  	
-  
-  
+  {% if block.settings.slide_cart_img_stick_bt_lap == true %}  
+    <input class="sticky_lap" type="text" value="stick_lap_yes">
+  {% else %}
+    <input class="sticky_lap" type="text" value="stick_lap_no">
+  {% endif %}
+
+  {% if block.settings.slide_cart_img_stick_bt_mob == true %}  
+    <input class="sticky_mob" type="text" value="stick_mob_yes">
+  {% else %}
+    <input class="sticky_mob" type="text" value="stick_mob_no">
+  {% endif %}  	
+
 </div>
 
 

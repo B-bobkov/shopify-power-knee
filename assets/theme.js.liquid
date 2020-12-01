@@ -1,3 +1,7 @@
+var test;
+var pretest;
+
+
 window.theme = window.theme || {};
 
 /* ================ SLATE ================ */
@@ -1768,6 +1772,8 @@ var ajaxCart = (function(module, $) {
         };
       }
 
+      
+
       // Create item's data object and add to 'items' array
       item = {
         key: cartItem.key,
@@ -1787,6 +1793,7 @@ var ajaxCart = (function(module, $) {
         originalLinePrice: Shopify.formatMoney(cartItem.original_line_price, settings.moneyFormat),
         discounts: cartItem.line_level_discount_allocations,
         discountsApplied: cartItem.line_level_discount_allocations.length === 0 ? false : true
+        
       };
 
       items.push(item);
@@ -1849,6 +1856,20 @@ var ajaxCart = (function(module, $) {
       }
     });
 
+    $cartContainer.on('click', '.ajaxifyCart--remove', function() {
+      if (isUpdating) return;
+      console.log("clicked");
+      var $el = $(this),
+          line = $el.data('line'),      
+      qty = 0;
+      // Without a data-line, let the default link action take over
+      if (!line) {
+        return;
+      }
+    updateQuantity(line, qty);
+
+    });
+
     // Update quantity based on input on change
     $cartContainer.on('change', '.ajaxcart__qty-num', function() {
       if (isUpdating) return;
@@ -1884,6 +1905,8 @@ var ajaxCart = (function(module, $) {
         $el.select();
       }, 50);
     });
+
+
 
     function updateQuantity(line, qty) {
       isUpdating = true;
@@ -3047,3 +3070,8 @@ $(document).ready(function() {
   sections.register('password-content-section', theme.PasswordContentSection);
   sections.register('product-recommendations', theme.ProductRecommendations);
 });
+
+
+console.log("end of theme.js");
+
+
